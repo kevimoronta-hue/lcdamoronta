@@ -1,84 +1,39 @@
 // =========================================
 // OFFICIAL BANK CONFIGURATION (SOURCE DE VÉRITÉ)
 // =========================================
+
+// Verified app-link domains (publicly confirmed via AASA + assetlinks.json):
+//   APAP → https://movil.apap.com.do/   (AASA: GCVY7C8QQ9.apapmovilprod / assetlinks: com.apapmovilprod)
+//   BHD  → https://link.bhd.com.do/     (AASA: V4TLL69EK8.com.do.bhd.V4TLL69EK8 / assetlinks: com.artech.infocorp_bhd.bhd)
+// All other banks: copy-only (no public app-link domain verified).
+
 const BANKS = {
     banreservas: {
         name: 'Banreservas',
         account: '9607307847',
-        androidPackage: 'com.banreservas.tubancoappmobile',
-        androidStore: 'https://play.google.com/store/apps/details?id=com.banreservas.tubancoappmobile',
-        iosLaunch: null,
-        iosStore: 'https://apps.apple.com/do/app/banreservas/id1170610154',
-        webFallback: 'https://www.banreservas.com'
+        appLink: null   // No verified public app-link domain
     },
     popular: {
         name: 'Banco Popular',
         account: '771465069',
-        androidPackage: 'com.popular.app.android',
-        androidStore: 'https://play.google.com/store/apps/details?id=com.popular.app.android',
-        iosLaunch: null,
-        iosStore: 'https://apps.apple.com/do/app/banco-popular-dominicano/id583475424',
-        webFallback: 'https://popularenlinea.com'
+        appLink: null   // No verified public app-link domain
     },
     apap: {
         name: 'Asociación APAP',
         account: '1036444651',
-        androidPackage: 'com.apapmovilprod',
-        androidStore: 'https://play.google.com/store/apps/details?id=com.apapmovilprod',
-        iosLaunch: null,
-        iosStore: 'https://apps.apple.com/do/app/m%C3%B3vil-apap/id1073508748',
-        webFallback: 'https://apap.com.do'
+        appLink: 'https://movil.apap.com.do/'  // Verified: AASA + assetlinks on movil.apap.com.do
     },
     bhd: {
         name: 'Banco BHD',
         account: '20207090018',
-        androidPackage: 'com.artech.infocorp_bhd.bhd',
-        androidStore: 'https://play.google.com/store/apps/details?id=com.artech.infocorp_bhd.bhd',
-        iosLaunch: null,
-        iosStore: 'https://apps.apple.com/do/app/m%C3%B3vil-banking-personal-bhd/id736887202',
-        webFallback: 'https://bhd.com.do'
+        appLink: 'https://link.bhd.com.do/'    // Verified: AASA + assetlinks on link.bhd.com.do
     },
     adopem: {
         name: 'Banco Adopem',
         account: '51015000000952',
-        androidPackage: 'org.mfbbva.mobile.adp',
-        androidStore: 'https://play.google.com/store/apps/details?id=org.mfbbva.mobile.adp',
-        iosLaunch: null,
-        iosStore: 'https://apps.apple.com/do/app/appdopem/id1516815961',
-        webFallback: 'https://bancoadopem.com.do'
+        appLink: null   // No verified public app-link domain
     }
 };
-
-/**
- * Détection de la plateforme d'exécution
- */
-function detectPlatform() {
-    const ua = navigator.userAgent || navigator.vendor || window.opera || '';
-    if (/android/i.test(ua)) return 'android';
-    if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) return 'ios';
-    return 'desktop';
-}
-
-/**
- * Timer de fallback pour iOS
- */
-let iosFallbackTimer = null;
-
-function clearIosFallback() {
-    if (iosFallbackTimer) {
-        clearTimeout(iosFallbackTimer);
-        iosFallbackTimer = null;
-    }
-}
-
-// Annuler le timer de fallback si l'application s'ouvre (Safari passe en arrière-plan)
-window.addEventListener('pagehide', clearIosFallback);
-window.addEventListener('blur', clearIosFallback);
-document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-        clearIosFallback();
-    }
-});
 
 /**
  * Copie asynchrone dans le presse-papiers avec fallback robuste
@@ -144,60 +99,30 @@ function showCopyFeedback(btn) {
 }
 
 /**
- * Ouvre l'application bancaire si un mécanisme vérifié existe,
- * sinon bascule proprement vers le Store officiel en fallback
- */
-function openBankApp(bankKey) {
-    const bank = BANKS[bankKey];
-    if (!bank) return;
-
-    const platform = detectPlatform();
-
-    if (platform === 'android') {
-        // Intent standard Chrome Android: cible le package officiel de l'app installée
-        // S.browser_fallback_url redirige vers Google Play UNIQUEMENT si l'app n'est pas installée
-        const intentUrl = `intent://#Intent;package=${bank.androidPackage};S.browser_fallback_url=${encodeURIComponent(bank.androidStore)};end;`;
-        window.location.href = intentUrl;
-    } else if (platform === 'ios') {
-        // Sur iOS: Si un launcher URI vérifié existe, on le déclenche avec fallback temporisé
-        if (bank.iosLaunch) {
-            clearIosFallback();
-            iosFallbackTimer = setTimeout(() => {
-                if (!document.hidden) {
-                    window.location.href = bank.iosStore;
-                }
-                iosFallbackTimer = null;
-            }, 2000);
-            window.location.href = bank.iosLaunch;
-        } else {
-            // Aucun launcher vérifié: fallback officiel App Store
-            // Évite strictement l'alerte d'erreur Safari "URL non valide"
-            window.location.href = bank.iosStore;
-        }
-    } else {
-        // Desktop: ouverture du portail web bancaire dans un nouvel onglet
-        window.open(bank.webFallback, '_blank', 'noopener,noreferrer');
-    }
-}
-
-/**
- * Action centralisée: Copier -> Feedback -> Ouvrir l'application bancaire / Fallback
+ * Action centralisée: Copier → Feedback → Naviguer vers l'app-link vérifié (APAP / BHD uniquement)
+ *
+ * Pour APAP et BHD : window.location.href vers le domaine HTTPS vérifié.
+ * Le système d'exploitation (iOS / Android) décide si l'app installée intercepte le lien.
+ * Aucune détection d'app, aucun timer, aucun store fallback.
+ *
+ * Pour Banreservas, Popular, Adopem et la Cédula : COPY ONLY. Aucune navigation.
  */
 async function copyAndOpenBank(btn) {
     const textToCopy = btn.getAttribute('data-copy');
     const bankKey = btn.getAttribute('data-bank');
     if (!textToCopy) return;
 
-    // 1. FIRST: Copier immédiatement le numéro de compte
+    // 1. Copier immédiatement le numéro de compte
     await copyAccount(textToCopy);
 
-    // 2. THEN: Afficher le feedback visuel "✓ Copiado"
+    // 2. Afficher le feedback visuel "✓ Copiado"
     showCopyFeedback(btn);
 
-    // 3. THEN: Lancer l'application bancaire UNIQUEMENT pour les comptes bancaires
-    // La cédula n'ayant pas d'attribut data-bank, elle reste STRICTEMENT COPY ONLY
-    if (bankKey && BANKS[bankKey]) {
-        openBankApp(bankKey);
+    // 3. Naviguer vers l'app-link vérifié — APAP et BHD uniquement
+    //    La cédula n'a pas d'attribut data-bank → toujours COPY ONLY
+    //    Les banques sans appLink → toujours COPY ONLY
+    if (bankKey && BANKS[bankKey] && BANKS[bankKey].appLink) {
+        window.location.href = BANKS[bankKey].appLink;
     }
 }
 
