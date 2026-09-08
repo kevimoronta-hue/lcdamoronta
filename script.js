@@ -2,36 +2,47 @@
 // OFFICIAL BANK CONFIGURATION (SOURCE DE VÉRITÉ)
 // =========================================
 
-// Verified app-link domains (publicly confirmed via AASA + assetlinks.json):
+// Verified HTTPS app-link domains (AASA + assetlinks.json confirmed):
 //   APAP → https://movil.apap.com.do/   (AASA: GCVY7C8QQ9.apapmovilprod / assetlinks: com.apapmovilprod)
 //   BHD  → https://link.bhd.com.do/     (AASA: V4TLL69EK8.com.do.bhd.V4TLL69EK8 / assetlinks: com.artech.infocorp_bhd.bhd)
-// All other banks: copy-only (no public app-link domain verified).
+//
+// Android package intents (no store fallback — direct installed-app test):
+//   Banreservas → com.banreservas.tubancoappmobile
+//   Popular     → com.popular.app.android
+//   Adopem      → org.mfbbva.mobile.adp
+//
+// iOS — Banreservas / Popular / Adopem: copy-only (no verified Universal Link / URL scheme).
 
 const BANKS = {
     banreservas: {
         name: 'Banreservas',
         account: '9607307847',
-        appLink: null   // No verified public app-link domain
+        appLink: null,                                        // No verified HTTPS app-link (iOS: copy-only)
+        androidPackage: 'com.banreservas.tubancoappmobile'   // Android: direct package intent
     },
     popular: {
         name: 'Banco Popular',
         account: '771465069',
-        appLink: null   // No verified public app-link domain
+        appLink: null,                                        // No verified HTTPS app-link (iOS: copy-only)
+        androidPackage: 'com.popular.app.android'            // Android: direct package intent
     },
     apap: {
         name: 'Asociación APAP',
         account: '1036444651',
-        appLink: 'https://movil.apap.com.do/'  // Verified: AASA + assetlinks on movil.apap.com.do
+        appLink: 'https://movil.apap.com.do/',               // Verified iOS + Android HTTPS App Link
+        androidPackage: null                                  // appLink used on Android too (verified)
     },
     bhd: {
         name: 'Banco BHD',
         account: '20207090018',
-        appLink: 'https://link.bhd.com.do/'    // Verified: AASA + assetlinks on link.bhd.com.do
+        appLink: 'https://link.bhd.com.do/',                 // Verified iOS + Android HTTPS App Link
+        androidPackage: null                                  // appLink used on Android too (verified)
     },
     adopem: {
         name: 'Banco Adopem',
         account: '51015000000952',
-        appLink: null   // No verified public app-link domain
+        appLink: null,                                        // No verified HTTPS app-link (iOS: copy-only)
+        androidPackage: 'org.mfbbva.mobile.adp'             // Android: direct package intent
     }
 };
 
@@ -98,33 +109,58 @@ function showCopyFeedback(btn) {
     }, 1400);
 }
 
+
 /**
- * Action centralisée: Copier → Feedback → Naviguer vers l'app-link vérifié (APAP / BHD uniquement)
+ * Returns true when running on Android (Chrome or WebView).
+ * Used ONLY to decide between package intent vs copy-only for
+ * Banreservas / Popular / Adopem.
+ * APAP and BHD use verified HTTPS App Links on every platform.
+ */
+function isAndroid() {
+    return /android/i.test(navigator.userAgent);
+}
+
+/**
+ * Action centralisée: Copier → Feedback → Ouvrir l'app si mécanisme disponible.
  *
- * Pour APAP et BHD : window.location.href vers le domaine HTTPS vérifié.
- * Le système d'exploitation (iOS / Android) décide si l'app installée intercepte le lien.
- * Aucune détection d'app, aucun timer, aucun store fallback.
+ * APAP / BHD (appLink set):
+ *   All platforms → window.location.href to verified HTTPS App Link.
+ *   The OS intercepts if the app is installed.
  *
- * Pour Banreservas, Popular, Adopem et la Cédula : COPY ONLY. Aucune navigation.
+ * Banreservas / Popular / Adopem (androidPackage set, appLink null):
+ *   Android → package intent (intent://#Intent;package=…;end;)
+ *             No store fallback — raw installed-app test.
+ *   iOS     → copy-only (no verified Universal Link / URL scheme).
+ *
+ * Cédula (no data-bank attribute): always copy-only.
  */
 async function copyAndOpenBank(btn) {
     const textToCopy = btn.getAttribute('data-copy');
     const bankKey = btn.getAttribute('data-bank');
     if (!textToCopy) return;
 
-    // 1. Copier immédiatement le numéro de compte
+    // 1. Copy account number
     await copyAccount(textToCopy);
 
-    // 2. Afficher le feedback visuel "✓ Copiado"
+    // 2. Show ✓ Copiado feedback
     showCopyFeedback(btn);
 
-    // 3. Naviguer vers l'app-link vérifié — APAP et BHD uniquement
-    //    La cédula n'a pas d'attribut data-bank → toujours COPY ONLY
-    //    Les banques sans appLink → toujours COPY ONLY
-    if (bankKey && BANKS[bankKey] && BANKS[bankKey].appLink) {
-        window.location.href = BANKS[bankKey].appLink;
+    // 3. Open bank app — only if a bank key is present (Cédula has none)
+    if (!bankKey || !BANKS[bankKey]) return;
+
+    const bank = BANKS[bankKey];
+
+    if (bank.appLink) {
+        // APAP / BHD — verified HTTPS App Link works on iOS and Android
+        window.location.href = bank.appLink;
+    } else if (bank.androidPackage && isAndroid()) {
+        // Banreservas / Popular / Adopem — Android only
+        // No S.browser_fallback_url: we want a binary pass/fail on the intent
+        window.location.href = `intent://#Intent;package=${bank.androidPackage};end;`;
     }
+    // else: iOS for Banreservas / Popular / Adopem → copy-only, no navigation
 }
+
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Animation d'entrée des cartes en cascade
