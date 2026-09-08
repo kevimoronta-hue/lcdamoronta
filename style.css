@@ -1,392 +1,709 @@
 /* =========================================
-   SCALIA - LUXURY BANKING DESIGN SYSTEM
+   SCALIA - LUXURY BANKING & FINTECH DESIGN SYSTEM
+   Direction Artistique: Ivoire / Champagne / Deep Scalia Blue
    ========================================= */
 
 :root {
-    /* Premium Color Palette */
-    --scalia-navy: #0a1122;
-    --scalia-navy-light: #182a52;
-    --scalia-champagne: #d4c5a9;
-    --scalia-champagne-dark: #b5a07c;
-    --scalia-ivory: #f7f6f0;
-    --scalia-white: #ffffff;
-    --scalia-text-main: #141c2f;
-    --scalia-text-muted: #5e687a;
+    /* Zone A & B: Warm Ivory Canvas */
+    --canvas-base: #FAF9F6;
+    --canvas-ivory-light: #FBFAF7;
+    --canvas-ivory-mid: #F7F4EE;
+    --canvas-ivory-warm: #EFE8DC;
     
-    /* Bank Accents */
-    --bank-banreservas: #0076a8;
-    --bank-popular: #003876;
-    --bank-apap: #c4a77d;
-    --bank-bhd: #4caf50;
-    --bank-adopem: #f57f20;
+    /* Champagne Palette */
+    --champagne-light: #E6D4B8;
+    --champagne-mid: #D8C1A0;
+    --champagne-dense: #C8A87A;
+    --champagne-gold: #C9A66B;
+    --champagne-dark: #9E7D52;
+    --champagne-graphite: #6E5334;
 
-    /* Material Shadows */
-    --shadow-contact: 0 8px 20px rgba(10, 17, 34, 0.08);
-    --shadow-ambient: 0 2px 4px rgba(10, 17, 34, 0.03);
-    --highlight-top: inset 0 1px 1px rgba(255, 255, 255, 0.9);
-    --highlight-edge: 1px solid rgba(181, 160, 124, 0.15);
+    /* Zone C: Scalia Blue Terminal */
+    --scalia-blue-light: #0A2748;
+    --scalia-blue-mid: #061B34;
+    --scalia-blue-deep: #031326;
+
+    /* Opaline 3D Plaque Material */
+    --card-surface-specular: #FFFFFF;
+    --card-surface-body: #F8FAFC;
+    --card-surface-cool: #EEF3F8;
+    --card-edge-bevel: #DCE5EE;
+    --card-edge-thickness: #CBD6E2;
+    --card-edge-dark: #B5C4D2;
+    
+    /* Typography */
+    --text-navy-title: #0B192C;
+    --text-navy-subtitle: #475569;
+    --text-primary: #0B192C;
+    --text-secondary: #64748B;
+
+    /* Bank Signature Brand Colors */
+    --bank-banreservas-cyan: #00AEEF;
+    --bank-banreservas-blue: #006CB7;
+    --bank-banreservas-dark: #004578;
+    
+    --bank-popular-light: #0072BC;
+    --bank-popular-cobalt: #003B7A;
+    --bank-popular-dark: #00224A;
+    
+    --bank-apap-gold-light: #E4C46A;
+    --bank-apap-gold-mid: #C89B3C;
+    --bank-apap-gold-dark: #8C681D;
+    
+    --bank-bhd-green-light: #38B968;
+    --bank-bhd-green-mid: #00A651;
+    --bank-bhd-green-dark: #00632E;
+    
+    --bank-adopem-orange-light: #FF9E42;
+    --bank-adopem-orange-mid: #F58220;
+    --bank-adopem-orange-dark: #BA4E00;
+
+    /* Scalia Physical Button */
+    --btn-lit: #0B2A50;
+    --btn-mid: #08213F;
+    --btn-base: #06182F;
 }
 
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
     -webkit-tap-highlight-color: transparent;
 }
 
-body, html {
-    margin: 0;
-    padding: 0;
+html, body {
     width: 100%;
     min-height: 100vh;
-    background-color: var(--scalia-ivory);
+    background-color: var(--canvas-base);
+    /* 3-Zone Vertical Progression: Luminous top -> Calm middle -> Warm champagne transition */
     background-image: 
-        radial-gradient(circle at 0% 0%, rgba(255,255,255,0.8) 0%, transparent 40%),
-        radial-gradient(circle at 100% 100%, rgba(212, 197, 169, 0.2) 0%, transparent 60%);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    color: var(--scalia-text-main);
+        radial-gradient(ellipse 70% 35% at 50% 0%, #FFFFFF 0%, rgba(251, 250, 247, 0.8) 55%, transparent 100%),
+        radial-gradient(ellipse 65% 50% at 50% 45%, #FFFFFF 0%, rgba(248, 246, 241, 0.7) 65%, transparent 100%),
+        linear-gradient(180deg, var(--canvas-ivory-light) 0%, var(--canvas-ivory-mid) 35%, #F5F0E6 70%, #EBDDC8 100%);
+    background-attachment: fixed;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--text-primary);
     overflow-x: hidden;
+    position: relative;
 }
 
+/* =========================================
+   PAGE CONTAINER & TOP SCULPTURES (ZONE A)
+   ========================================= */
 .page-container {
     position: relative;
     width: 100%;
-    max-width: 600px; /* Constrain for desktop while keeping mobile logic */
+    max-width: 580px;
     margin: 0 auto;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    padding-bottom: 120px; /* Space for waves */
+    overflow-x: hidden;
 }
 
-/* =========================================
-   TOP SCULPTURAL DECORATIONS
-   ========================================= */
-.top-decor {
+/* Top-Left Champagne Sculptural Ribbon */
+.page-container::before {
+    content: '';
     position: absolute;
-    top: -20px;
-    height: 180px;
+    top: -45px;
+    left: -65px;
     width: 250px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--scalia-champagne) 0%, var(--scalia-champagne-dark) 100%);
-    z-index: 0;
-    box-shadow: 
-        0 10px 30px rgba(0,0,0,0.1), 
-        inset 2px 2px 5px rgba(255,255,255,0.5);
-    opacity: 0.9;
-}
-
-.decor-left {
-    left: -100px;
-    transform: rotate(25deg);
-    border: 2px solid rgba(255,255,255,0.4);
-}
-
-.decor-right {
-    right: -80px;
-    transform: rotate(-15deg);
-    width: 300px;
     height: 200px;
-    border: 2px solid rgba(255,255,255,0.4);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    background: linear-gradient(135deg, rgba(230, 212, 184, 0.5) 0%, rgba(200, 168, 122, 0.22) 45%, rgba(247, 244, 238, 0) 75%);
+    border-bottom: 1.5px solid rgba(200, 168, 122, 0.4);
+    box-shadow: 0 10px 25px rgba(200, 168, 122, 0.08);
+    pointer-events: none;
+    z-index: 1;
+    transform: rotate(-8deg);
+}
+
+/* Top-Right Champagne Sculptural Ribbon */
+.page-container::after {
+    content: '';
+    position: absolute;
+    top: -55px;
+    right: -75px;
+    width: 270px;
+    height: 220px;
+    border-radius: 60% 40% 30% 70% / 50% 40% 50% 60%;
+    background: linear-gradient(225deg, rgba(230, 212, 184, 0.55) 0%, rgba(200, 168, 122, 0.22) 45%, rgba(247, 244, 238, 0) 75%);
+    border-bottom: 1.5px solid rgba(200, 168, 122, 0.4);
+    box-shadow: 0 10px 25px rgba(200, 168, 122, 0.08);
+    pointer-events: none;
+    z-index: 1;
+    transform: rotate(6deg);
 }
 
 /* =========================================
-   HEADER
+   HEADER (ZONE A - ENCADRÉ ET LUMINEUX)
    ========================================= */
 .header-section {
     position: relative;
-    z-index: 10;
     text-align: center;
-    padding: 50px 20px 30px;
+    padding: clamp(38px, 8vw, 54px) 20px clamp(20px, 4.5vw, 30px);
+    z-index: 5;
+    opacity: 0;
+    animation: fadeInHeader 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Inner secondary fine ribbon accents framing the header */
+.header-section::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: -20px;
+    width: 170px;
+    height: 120px;
+    border-radius: 50%;
+    border-bottom: 1.2px solid rgba(216, 193, 160, 0.55);
+    background: linear-gradient(140deg, rgba(251, 250, 247, 0.6) 0%, rgba(200, 168, 122, 0.12) 60%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+    transform: rotate(-14deg);
+}
+
+.header-section::after {
+    content: '';
+    position: absolute;
+    top: -16px;
+    right: -25px;
+    width: 180px;
+    height: 130px;
+    border-radius: 50%;
+    border-bottom: 1.2px solid rgba(216, 193, 160, 0.55);
+    background: linear-gradient(220deg, rgba(251, 250, 247, 0.6) 0%, rgba(200, 168, 122, 0.12) 60%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+    transform: rotate(12deg);
+}
+
+@keyframes fadeInHeader {
+    0% { opacity: 0; transform: translateY(-8px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
 .page-title {
-    margin: 0;
-    font-size: clamp(1.6rem, 6vw, 2.2rem);
+    position: relative;
+    z-index: 5;
+    font-size: clamp(1.45rem, 5.5vw, 2rem);
     font-weight: 700;
-    color: var(--scalia-navy);
-    letter-spacing: -0.5px;
-    text-shadow: 0 2px 4px rgba(255,255,255,0.8);
+    letter-spacing: 0.8px;
+    color: var(--text-navy-title);
+    text-transform: uppercase;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
 }
 
 .page-subtitle {
-    margin: 5px 0 0;
-    font-size: clamp(0.9rem, 4vw, 1.1rem);
+    position: relative;
+    z-index: 5;
+    margin-top: 6px;
+    font-size: clamp(0.9rem, 3.8vw, 1.05rem);
     font-weight: 400;
-    color: var(--scalia-navy-light);
+    color: var(--text-navy-subtitle);
+    letter-spacing: 0.25px;
 }
 
 /* =========================================
-   CARDS GRID
+   CARDS CONTAINER & 3D OPALINE SYSTEM (ZONE B)
    ========================================= */
 .cards-section {
     position: relative;
     z-index: 10;
-    padding: 0 15px;
+    padding: 0 16px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 15px;
     width: 100%;
 }
 
 .card {
     position: relative;
     width: 100%;
-    background: var(--scalia-white);
-    border-radius: 12px;
-    border: var(--highlight-edge);
-    box-shadow: var(--shadow-contact), var(--shadow-ambient), var(--highlight-top);
+    /* Solid physical opaline ceramic/glass plaque */
+    background: linear-gradient(168deg, var(--card-surface-specular) 0%, var(--card-surface-body) 35%, var(--card-surface-cool) 100%);
+    border-radius: 14px;
+    
+    /* Precision optical edges catching directional softbox light */
+    border-top: 1px solid rgba(255, 255, 255, 0.95);
+    border-left: 1px solid rgba(255, 255, 255, 0.7);
+    border-right: 1px solid var(--card-edge-bevel);
+    border-bottom: 1px solid var(--card-edge-thickness);
+    
+    /* 3-Level Physical 3D Depth & Stratified Contact/Ambient Shadows */
+    box-shadow: 
+        0 1px 0 1px var(--card-edge-bevel),                  /* Beveled rim */
+        0 3px 0 0 var(--card-edge-thickness),                /* 3mm physical plaque thickness */
+        0 4px 1px 0 var(--card-edge-dark),                   /* Darkened underside thickness */
+        0 4px 8px 0 rgba(4, 17, 31, 0.14),                   /* Crisp contact shadow underneath */
+        0 14px 24px -4px rgba(4, 17, 31, 0.16),              /* Diffuse floating shadow */
+        0 28px 42px -10px rgba(4, 17, 31, 0.10),             /* Soft atmospheric floor shadow */
+        inset 0 1px 1px rgba(255, 255, 255, 1),              /* Specular top arris highlight */
+        inset 0 -1px 2px rgba(4, 17, 31, 0.02);
+        
     display: flex;
     align-items: stretch;
-    min-height: 85px;
+    min-height: 90px;
     overflow: hidden;
+    
+    /* Entrance base state */
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Staggered entrance applied by JS */
+.card.visible {
+    animation: entranceSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes entranceSlide {
+    0% {
+        opacity: 0;
+        transform: translateY(12px) scale(0.985);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Desktop Hover Lift */
+@media (hover: hover) and (pointer: fine) {
+    .card:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 
+            0 1px 0 1px var(--card-edge-bevel),
+            0 5px 0 0 var(--card-edge-thickness),
+            0 6px 1px 0 var(--card-edge-dark),
+            0 8px 14px 0 rgba(4, 17, 31, 0.18),
+            0 20px 32px -4px rgba(4, 17, 31, 0.20),
+            0 36px 52px -10px rgba(4, 17, 31, 0.14),
+            inset 0 1px 1px rgba(255, 255, 255, 1);
+    }
+}
+
+/* =========================================
+   3D COLOR STRIP (PHYSICAL PIECE INTEGRATED IN CARD)
+   ========================================= */
 .card::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(120deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 50%);
-    pointer-events: none;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6.5px;
+    border-radius: 14px 0 0 14px;
+    opacity: 0;
+    z-index: 3;
+    box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.65),
+        inset -1px 0 2px rgba(0, 0, 0, 0.22),
+        1px 0 1px rgba(255, 255, 255, 0.8),
+        0 3px 0 0 var(--card-edge-thickness);
 }
 
-/* Columns */
-.card-logo-col {
-    width: 32%;
-    max-width: 130px;
+/* Micro-reveal on entrance */
+.card.visible::before {
+    animation: activateStripe 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 0.18s;
+}
+
+@keyframes activateStripe {
+    0% { opacity: 0; transform: scaleY(0.9); }
+    100% { opacity: 1; transform: scaleY(1); }
+}
+
+.titular-card::before {
+    background: linear-gradient(180deg, #FFFFFF 0%, #DCE5EE 45%, #94A3B8 100%);
+}
+
+.bank-banreservas::before {
+    background: linear-gradient(180deg, #00C4FF 0%, var(--bank-banreservas-cyan) 25%, var(--bank-banreservas-blue) 75%, var(--bank-banreservas-dark) 100%);
+}
+
+.bank-popular::before {
+    background: linear-gradient(180deg, #2A98E8 0%, var(--bank-popular-light) 30%, var(--bank-popular-cobalt) 75%, var(--bank-popular-dark) 100%);
+}
+
+.bank-apap::before {
+    background: linear-gradient(180deg, #F8E6A6 0%, var(--bank-apap-gold-light) 30%, var(--bank-apap-gold-mid) 70%, var(--bank-apap-gold-dark) 100%);
+}
+
+.bank-bhd::before {
+    background: linear-gradient(180deg, #50E88B 0%, var(--bank-bhd-green-light) 30%, var(--bank-bhd-green-mid) 70%, var(--bank-bhd-green-dark) 100%);
+}
+
+.bank-adopem::before {
+    background: linear-gradient(180deg, #FFB26B 0%, var(--bank-adopem-orange-light) 30%, var(--bank-adopem-orange-mid) 70%, var(--bank-adopem-orange-dark) 100%);
+}
+
+/* =========================================
+   INTERNAL CARD STRUCTURE
+   ========================================= */
+.card-logo-col,
+.card-icon-col {
+    flex: 0 0 120px;
+    max-width: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px 10px;
-    border-right: 1px solid rgba(0,0,0,0.04);
+    padding: 10px 14px;
+    position: relative;
+    z-index: 2;
 }
 
+/* Engraved / Recessed / Machined Vertical Separators */
+.card-logo-col::after,
+.card-icon-col::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 14%;
+    bottom: 14%;
+    width: 1px;
+    background: rgba(11, 25, 44, 0.07);
+    box-shadow: 1px 0 0 rgba(255, 255, 255, 0.95);
+}
+
+.avatar-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(140deg, #E2E8F0 0%, #CBD5E1 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    font-size: 1.25rem;
+    box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.9),
+        0 2px 4px rgba(4, 17, 31, 0.08);
+}
+
+/* Optical Calibration for Equal Visual Weight */
 .card-logo-col img {
-    width: 100%;
-    max-width: 95%;
-    max-height: 70px;
+    width: auto;
+    height: auto;
+    max-width: 100%;
     object-fit: contain;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.04));
+    display: block;
 }
 
+.bank-banreservas .card-logo-col img {
+    max-height: 44px;
+    max-width: 96%;
+}
+
+.bank-popular .card-logo-col img {
+    max-height: 42px;
+    max-width: 94%;
+}
+
+.bank-apap .card-logo-col img {
+    max-height: 40px;
+    max-width: 98%;
+}
+
+.bank-bhd .card-logo-col img {
+    max-height: 35px;
+    max-width: 82%;
+}
+
+.bank-adopem .card-logo-col img {
+    max-height: 40px;
+    max-width: 96%;
+}
+
+/* Info Column */
 .card-info-col {
     flex: 1;
-    padding: 12px 15px;
+    min-width: 0;
+    padding: 12px 16px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    z-index: 2;
 }
 
+/* Action Column */
 .card-action-col {
-    width: 80px;
+    flex: 0 0 78px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 10px;
-    border-left: 1px solid rgba(0,0,0,0.04);
-    background: rgba(250, 249, 245, 0.5);
+    position: relative;
+    z-index: 2;
 }
 
-/* Typography & Data */
+.card-action-col::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 14%;
+    bottom: 14%;
+    width: 1px;
+    background: rgba(11, 25, 44, 0.07);
+    box-shadow: 1px 0 0 rgba(255, 255, 255, 0.95);
+}
+
+/* Typography */
 .account-type {
-    font-size: 0.7rem;
-    color: var(--scalia-text-muted);
+    font-size: 0.72rem;
+    color: var(--text-secondary);
     font-weight: 500;
-    margin-bottom: 6px;
+    margin-bottom: 3px;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
 }
 
 .account-type i {
-    color: var(--scalia-champagne-dark);
+    color: #94A3B8;
+    font-size: 0.75rem;
 }
 
 .info-row {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 1px;
 }
 
 .info-label {
-    font-size: 0.65rem;
-    color: var(--scalia-text-muted);
+    font-size: 0.68rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    letter-spacing: 0.1px;
 }
 
 .info-value {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--scalia-navy);
+    color: var(--text-primary);
 }
 
 .info-value.name {
     font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.2px;
 }
 
 .info-value.number {
-    font-size: 1.15rem;
-    letter-spacing: 0.5px;
+    font-size: clamp(1.05rem, 4.2vw, 1.28rem);
+    letter-spacing: 0.4px;
+    font-weight: 700;
+    white-space: nowrap;
 }
 
 .inline-row {
     flex-direction: row;
     align-items: baseline;
     gap: 8px;
-    margin-top: 5px;
+    margin-top: 4px;
 }
 
-/* Specific Card Layouts */
-.titular-card {
-    margin-bottom: 8px;
-}
-
-.avatar-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #e4d8c3 0%, var(--scalia-champagne-dark) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--scalia-white);
-    font-size: 1.2rem;
-    box-shadow: 0 4px 8px rgba(181, 160, 124, 0.3);
-}
-
-/* Bank Left Accents */
-.bank-banreservas { border-left: 4px solid var(--bank-banreservas); }
-.bank-popular { border-left: 4px solid var(--bank-popular); }
-.bank-apap { border-left: 4px solid var(--bank-apap); }
-.bank-bhd { border-left: 4px solid var(--bank-bhd); }
-.bank-adopem { border-left: 4px solid var(--bank-adopem); }
-
-/* Logo Placeholder */
-.logo-placeholder {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 5px;
-    color: var(--bank-popular);
-    font-size: 0.55rem;
-    font-weight: 700;
-    line-height: 1.1;
-    text-align: left;
-}
-.sunburst-icon {
-    font-size: 1.4rem;
+.inline-row .info-value {
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
 }
 
 /* =========================================
-   COPY BUTTON
+   PREMIUM CONVEX COPY BUTTON
    ========================================= */
 .copy-button {
-    width: 100%;
-    aspect-ratio: 1/1;
-    max-width: 65px;
-    max-height: 65px;
-    
-    background: linear-gradient(180deg, var(--scalia-navy-light) 0%, var(--scalia-navy) 100%);
-    color: var(--scalia-white);
+    width: 58px;
+    height: 58px;
+    background: linear-gradient(180deg, var(--btn-lit) 0%, var(--btn-mid) 45%, var(--btn-base) 100%);
+    color: #FFFFFF;
     border: none;
-    border-radius: 8px;
-    
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 4px;
-    
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', -apple-system, sans-serif;
     font-weight: 500;
     font-size: 0.65rem;
-    
+    letter-spacing: 0.2px;
     box-shadow: 
-        0 4px 6px rgba(0, 0, 0, 0.15), 
-        inset 0 1px 1px rgba(255, 255, 255, 0.15);
-    
+        0 4px 8px rgba(4, 17, 31, 0.4),
+        0 1px 2px rgba(4, 17, 31, 0.25),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.35),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.14);
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.1, 0.7, 0.1, 1);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
     padding: 0;
+    outline: none;
+    user-select: none;
+    flex-shrink: 0;
 }
 
 .copy-button i {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
+    line-height: 1;
+    color: #FFFFFF;
 }
 
 .copy-button:active {
-    transform: scale(0.92);
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
-}
-
-.copy-button.success {
-    background: linear-gradient(180deg, #135c33 0%, #0d4224 100%);
+    transform: scale(0.97);
     box-shadow: 
-        0 4px 6px rgba(19, 92, 51, 0.3), 
-        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+        0 2px 4px rgba(4, 17, 31, 0.5),
+        inset 0 1px 1px rgba(255, 255, 255, 0.12);
 }
 
 /* =========================================
-   BOTTOM WAVES & BRANDING
+   ZONE C: BAS / COUCHES MÉTALLIQUES & SCALIA
    ========================================= */
 .footer-section {
+    position: relative;
+    width: 100%;
+    margin-top: 24px;
+    padding: 0;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.waves-container {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+}
+
+/* Couche 1: Champagne clair (#E8D9C3) */
+.wave-1 {
     position: absolute;
     bottom: 0;
-    left: 0;
-    right: 0;
-    height: 160px;
-    overflow: hidden;
+    left: -12%;
+    right: -12%;
+    height: 155px;
+    border-radius: 65% 55% 0 0 / 60px 48px 0 0;
+    background: linear-gradient(175deg, #F5EAE0 0%, #E8D9C3 60%, #DAC7AF 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 -4px 14px rgba(158, 125, 82, 0.12);
     z-index: 1;
 }
 
-.wave-layer {
+/* Couche 2: Métal champagne plus dense (#C9A66B) */
+.wave-2 {
     position: absolute;
-    bottom: 0; left: -10%; right: -10%;
-    height: 100%;
-    border-radius: 100% 100% 0 0;
-    box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
-}
-
-.wave-champagne {
-    background: linear-gradient(180deg, #e4d8c3 0%, var(--scalia-champagne-dark) 100%);
-    height: 120px;
-    transform: rotate(2deg);
-    bottom: 10px;
-}
-
-.wave-steel {
-    background: linear-gradient(180deg, #b0b5be 0%, #7c8599 100%);
-    height: 90px;
-    transform: rotate(-3deg);
     bottom: 0;
-    box-shadow: 0 -5px 25px rgba(0,0,0,0.15);
+    left: -15%;
+    right: -8%;
+    height: 124px;
+    border-radius: 50% 60% 0 0 / 52px 56px 0 0;
+    background: linear-gradient(168deg, #E6CDA2 0%, var(--champagne-gold) 50%, #A88349 100%);
+    border-top: 1.5px solid #F9EED9;
+    box-shadow: 0 -6px 18px rgba(158, 125, 82, 0.25);
+    transform: rotate(-1.5deg);
+    z-index: 2;
 }
 
-.wave-navy {
-    background: linear-gradient(180deg, var(--scalia-navy-light) 0%, var(--scalia-navy) 100%);
-    height: 60px;
-    transform: rotate(1deg);
-    border-radius: 50% 50% 0 0;
-    box-shadow: 0 -8px 25px rgba(0,0,0,0.3);
-}
-
-.scalia-branding {
+/* Couche 3: Métal sombre / graphite-champagne (#9E7D52) */
+.wave-3 {
     position: absolute;
-    bottom: 15px;
-    right: 20px;
+    bottom: 0;
+    left: -8%;
+    right: -16%;
+    height: 90px;
+    border-radius: 65% 45% 0 0 / 46px 42px 0 0;
+    background: linear-gradient(165deg, var(--champagne-dark) 0%, var(--champagne-graphite) 60%, #44321E 100%);
+    border-top: 1.2px solid rgba(245, 230, 204, 0.65);
+    box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.32);
+    transform: rotate(1deg);
+    z-index: 3;
+}
+
+/* Couche 4: Bleu Scalia profond (#031326 / #061B34 / #0A2748) */
+.wave-4 {
+    position: absolute;
+    bottom: 0;
+    left: -10%;
+    right: -10%;
+    height: 64px;
+    border-radius: 55% 55% 0 0 / 32px 32px 0 0;
+    background: linear-gradient(180deg, var(--scalia-blue-light) 0%, var(--scalia-blue-mid) 35%, var(--scalia-blue-deep) 100%);
+    border-top: 1.5px solid #D4B277; /* Fine metallic champagne lip separating blue from metal */
+    box-shadow: 0 -6px 22px rgba(3, 19, 38, 0.55);
+    z-index: 4;
     display: flex;
-    align-items: baseline;
-    gap: 6px;
-    color: var(--scalia-white);
-    z-index: 20;
+    align-items: center;
+    justify-content: center;
+    padding-top: 6px;
+}
+
+/* Powered by Scalia */
+.scalia-branding {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: relative;
+    z-index: 5;
 }
 
 .powered-by {
-    font-size: 0.6rem;
+    font-size: 0.78rem;
     font-weight: 400;
-    opacity: 0.8;
+    color: rgba(255, 255, 255, 0.82);
+    letter-spacing: 0.3px;
 }
 
-.scalia-text {
-    font-size: 1.1rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+.scalia-logo {
+    height: 25px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+@media (max-width: 390px) {
+    .cards-section {
+        padding: 0 12px;
+        gap: 13px;
+    }
+    
+    .card-logo-col,
+    .card-icon-col {
+        flex: 0 0 100px;
+        max-width: 100px;
+        padding: 8px 10px;
+    }
+    
+    .card-action-col {
+        flex: 0 0 68px;
+        padding: 6px;
+    }
+    
+    .copy-button {
+        width: 52px;
+        height: 52px;
+        border-radius: 10px;
+    }
+    
+    .card-info-col {
+        padding: 10px 10px;
+    }
+    
+    .info-value.number {
+        font-size: clamp(0.96rem, 4vw, 1.15rem);
+    }
+}
+
+/* Reduced Motion Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .header-section,
+    .card,
+    .card::before {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
 }

@@ -13,16 +13,12 @@
 <body>
     <div class="page-container">
         
-        <!-- Sculptural Top Elements -->
-        <div class="top-decor decor-left"></div>
-        <div class="top-decor decor-right"></div>
-
         <header class="header-section">
             <h1 class="page-title">CUENTAS BANCARIAS</h1>
             <p class="page-subtitle">Datos para transferencias</p>
         </header>
 
-        <main class="cards-section">
+        <main class="cards-section" id="cards-container">
             
             <!-- Titular de las cuentas -->
             <div class="card titular-card">
@@ -40,7 +36,7 @@
                     </div>
                 </div>
                 <div class="card-action-col">
-                    <button class="copy-button" data-copy="228-0000149-1">
+                    <button class="copy-button" data-copy="228-0000149-1" aria-label="Copiar cédula">
                         <i class="fa-regular fa-copy"></i>
                         <span class="btn-text">Copiar</span>
                     </button>
@@ -60,7 +56,7 @@
                     </div>
                 </div>
                 <div class="card-action-col">
-                    <button class="copy-button" data-copy="9607307847">
+                    <button class="copy-button" data-copy="9607307847" aria-label="Copiar cuenta Banreservas">
                         <i class="fa-regular fa-copy"></i>
                         <span class="btn-text">Copiar</span>
                     </button>
@@ -80,7 +76,7 @@
                     </div>
                 </div>
                 <div class="card-action-col">
-                    <button class="copy-button" data-copy="771465069">
+                    <button class="copy-button" data-copy="771465069" aria-label="Copiar cuenta Banco Popular">
                         <i class="fa-regular fa-copy"></i>
                         <span class="btn-text">Copiar</span>
                     </button>
@@ -90,7 +86,7 @@
             <!-- APAP -->
             <div class="card bank-card bank-apap">
                 <div class="card-logo-col">
-                    <img src="assets/banco-apap.png" alt="APAP">
+                    <img src="assets/banco-apap.png" alt="Asociación APAP">
                 </div>
                 <div class="card-info-col">
                     <div class="account-type"><i class="fa-solid fa-piggy-bank"></i> Cuenta de ahorro</div>
@@ -100,7 +96,7 @@
                     </div>
                 </div>
                 <div class="card-action-col">
-                    <button class="copy-button" data-copy="1036444651">
+                    <button class="copy-button" data-copy="1036444651" aria-label="Copiar cuenta APAP">
                         <i class="fa-regular fa-copy"></i>
                         <span class="btn-text">Copiar</span>
                     </button>
@@ -120,7 +116,7 @@
                     </div>
                 </div>
                 <div class="card-action-col">
-                    <button class="copy-button" data-copy="20207090018">
+                    <button class="copy-button" data-copy="20207090018" aria-label="Copiar cuenta Banco BHD">
                         <i class="fa-regular fa-copy"></i>
                         <span class="btn-text">Copiar</span>
                     </button>
@@ -140,7 +136,7 @@
                     </div>
                 </div>
                 <div class="card-action-col">
-                    <button class="copy-button" data-copy="51015000000952">
+                    <button class="copy-button" data-copy="51015000000952" aria-label="Copiar cuenta Banco Adopem">
                         <i class="fa-regular fa-copy"></i>
                         <span class="btn-text">Copiar</span>
                     </button>
@@ -151,13 +147,16 @@
         
         <!-- Bottom Layers & Branding -->
         <footer class="footer-section">
-            <div class="wave-layer wave-champagne"></div>
-            <div class="wave-layer wave-steel"></div>
-            <div class="wave-layer wave-navy"></div>
-            
-            <div class="scalia-branding">
-                <span class="powered-by">Powered by</span>
-                <span class="scalia-text">SCALIA</span>
+            <div class="waves-container">
+                <div class="wave wave-1"></div>
+                <div class="wave wave-2"></div>
+                <div class="wave wave-3"></div>
+                <div class="wave wave-4">
+                    <div class="scalia-branding">
+                        <span class="powered-by">Powered by</span>
+                        <img src="assets/logo-scalia.png" alt="SCALIA" class="scalia-logo">
+                    </div>
+                </div>
             </div>
         </footer>
     </div>
