@@ -52,7 +52,7 @@ body, html {
     right: 7.5%; 
     width: clamp(80px, 24%, 150px); 
     height: 4.6%; 
-    transform: translateY(-100%); /* Le bord inférieur est ancré sur la coordonnée top */
+    transform: translateY(-50%); /* Centrage vertical parfait */
     
     background: linear-gradient(135deg, #0d3b66, #1a5a99);
     color: white;
@@ -71,12 +71,12 @@ body, html {
 }
 
 .copy-btn:hover {
-    transform: translateY(-100%) scale(1.02);
+    transform: translateY(-50%) scale(1.02);
     box-shadow: 0 6px 14px rgba(13, 59, 102, 0.4);
 }
 
 .copy-btn:active {
-    transform: translateY(-100%) scale(0.96);
+    transform: translateY(-50%) scale(0.96);
     box-shadow: 0 2px 6px rgba(13, 59, 102, 0.2);
 }
 
@@ -99,12 +99,12 @@ body, html {
     white-space: nowrap;
 }
 
-/* Coordonnées exactes recalculées : alignement du bord inférieur sur le texte 'Número de cuenta' */
-.btn-banreservas { top: 29.79%; }
-.btn-popular     { top: 41.41%; }
-.btn-apap        { top: 52.93%; }
-.btn-bhd         { top: 64.65%; }
-.btn-adopem      { top: 76.76%; }
+/* Coordonnées exactes : centrage du bouton sur la zone 'Número de cuenta + gros numéro' */
+.btn-banreservas { top: 31.15%; }
+.btn-popular     { top: 42.87%; }
+.btn-apap        { top: 54.39%; }
+.btn-bhd         { top: 66.11%; }
+.btn-adopem      { top: 78.17%; }
 
 .scalia-link {
     position: absolute;
