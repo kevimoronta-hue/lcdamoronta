@@ -555,109 +555,73 @@ html, body {
 }
 
 /* =========================================
-   ZONE C: BAS / COUCHES MÉTALLIQUES & SCALIA
+   ZONE C: BAS / TERMINAISON SCALIA BLUE UNIQUE
    ========================================= */
 .footer-section {
     position: relative;
     width: 100%;
-    margin-top: 24px;
+    margin-top: 36px;
     padding: 0;
     overflow: hidden;
     z-index: 10;
 }
 
-.waves-container {
+.footer-wave-wrap {
     position: relative;
     width: 100%;
-    height: 205px;
-    overflow: hidden;
-}
-
-/* Couche 1: Champagne clair (#E8D9C3) */
-.wave-1 {
-    position: absolute;
-    bottom: 0;
-    left: -12%;
-    right: -12%;
-    height: 175px;
-    border-radius: 65% 55% 0 0 / 60px 48px 0 0;
-    background: linear-gradient(175deg, #F5EAE0 0%, #E8D9C3 60%, #DAC7AF 100%);
-    border-top: 1px solid rgba(255, 255, 255, 0.9);
-    box-shadow: 0 -4px 14px rgba(158, 125, 82, 0.12);
-    z-index: 1;
-}
-
-/* Couche 2: Métal champagne plus dense (#C9A66B) */
-.wave-2 {
-    position: absolute;
-    bottom: 0;
-    left: -15%;
-    right: -8%;
-    height: 140px;
-    border-radius: 50% 60% 0 0 / 52px 56px 0 0;
-    background: linear-gradient(168deg, #E6CDA2 0%, var(--champagne-gold) 50%, #A88349 100%);
-    border-top: 1.5px solid #F9EED9;
-    box-shadow: 0 -6px 18px rgba(158, 125, 82, 0.25);
-    transform: rotate(-1.5deg);
-    z-index: 2;
-}
-
-/* Couche 3: Métal sombre / graphite-champagne (#9E7D52) */
-.wave-3 {
-    position: absolute;
-    bottom: 0;
-    left: -8%;
-    right: -16%;
-    height: 106px;
-    border-radius: 65% 45% 0 0 / 46px 42px 0 0;
-    background: linear-gradient(165deg, var(--champagne-dark) 0%, var(--champagne-graphite) 60%, #44321E 100%);
-    border-top: 1.2px solid rgba(245, 230, 204, 0.65);
-    box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.32);
-    transform: rotate(1deg);
-    z-index: 3;
-}
-
-/* Couche 4: Bleu Scalia profond (#031326 / #061B34 / #0A2748) */
-.wave-4 {
-    position: absolute;
-    bottom: 0;
-    left: -10%;
-    right: -10%;
-    height: 76px;
-    border-radius: 55% 55% 0 0 / 32px 32px 0 0;
-    background: linear-gradient(180deg, var(--scalia-blue-light) 0%, var(--scalia-blue-mid) 35%, var(--scalia-blue-deep) 100%);
-    border-top: 1.5px solid #D4B277; /* Fine metallic champagne lip separating blue from metal */
-    box-shadow: 0 -6px 22px rgba(3, 19, 38, 0.55);
-    z-index: 4;
+    height: 210px;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
-    padding-top: 8px;
 }
 
-/* Powered by Scalia */
-.scalia-branding {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
+.footer-wave-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+}
+
+/* Lien Powered by Scalia */
+.scalia-branding-link {
     position: relative;
-    z-index: 5;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    text-decoration: none;
+    margin-bottom: 34px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.scalia-branding-link:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
+}
+
+.scalia-branding-link:active {
+    transform: scale(0.98);
 }
 
 .powered-by {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.88);
-    letter-spacing: 0.3px;
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.92);
+    letter-spacing: 0.35px;
 }
 
 .scalia-logo {
-    height: 38px;
+    height: 44px;
     width: auto;
     object-fit: contain;
     display: block;
-    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.55));
 }
 
 /* =========================================
@@ -693,6 +657,24 @@ html, body {
     
     .info-value.number {
         font-size: clamp(0.96rem, 4vw, 1.15rem);
+    }
+
+    .footer-wave-wrap {
+        height: 180px;
+    }
+
+    .scalia-branding-link {
+        margin-bottom: 24px;
+        gap: 12px;
+        padding: 6px 12px;
+    }
+
+    .powered-by {
+        font-size: 0.92rem;
+    }
+
+    .scalia-logo {
+        height: 38px;
     }
 }
 
