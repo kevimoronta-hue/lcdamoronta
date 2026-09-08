@@ -555,78 +555,123 @@ html, body {
 }
 
 /* =========================================
-   ZONE C: BAS / TERMINAISON SCALIA BLUE UNIQUE
+   FOOTER (RAPPEL HARMONISÉ DU DESIGN HEADER)
    ========================================= */
 .footer-section {
     position: relative;
     width: 100%;
-    margin-top: 36px;
-    padding: 0;
-    overflow: hidden;
-    z-index: 10;
-}
-
-.footer-wave-wrap {
-    position: relative;
-    width: 100%;
-    height: 210px;
+    margin-top: auto;
+    padding: clamp(36px, 8vw, 54px) 20px clamp(32px, 7vw, 48px);
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
+    overflow: hidden;
+    z-index: 5;
 }
 
-.footer-wave-svg {
+/* Bottom-Left Champagne Sculptural Ribbon (Inversion du ruban supérieur) */
+.footer-section::before {
+    content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
+    bottom: -40px;
+    left: -60px;
+    width: 250px;
+    height: 190px;
+    border-radius: 50% 50% 40% 60% / 60% 40% 50% 50%;
+    background: linear-gradient(315deg, rgba(230, 212, 184, 0.5) 0%, rgba(200, 168, 122, 0.22) 45%, rgba(247, 244, 238, 0) 75%);
+    border-top: 1.5px solid rgba(200, 168, 122, 0.4);
+    box-shadow: 0 -10px 25px rgba(200, 168, 122, 0.08);
     pointer-events: none;
+    z-index: 1;
+    transform: rotate(8deg);
 }
 
-/* Lien Powered by Scalia */
+/* Bottom-Right Champagne Sculptural Ribbon (Inversion du ruban supérieur) */
+.footer-section::after {
+    content: '';
+    position: absolute;
+    bottom: -45px;
+    right: -70px;
+    width: 270px;
+    height: 200px;
+    border-radius: 40% 60% 60% 40% / 50% 50% 40% 60%;
+    background: linear-gradient(45deg, rgba(230, 212, 184, 0.55) 0%, rgba(200, 168, 122, 0.22) 45%, rgba(247, 244, 238, 0) 75%);
+    border-top: 1.5px solid rgba(200, 168, 122, 0.4);
+    box-shadow: 0 -10px 25px rgba(200, 168, 122, 0.08);
+    pointer-events: none;
+    z-index: 1;
+    transform: rotate(-6deg);
+}
+
+/* Scalia Branding Interactive Link avec fines arches intérieures */
 .scalia-branding-link {
     position: relative;
-    z-index: 10;
+    z-index: 5;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 16px;
     text-decoration: none;
-    margin-bottom: 34px;
-    padding: 10px 20px;
     cursor: pointer;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    padding: 8px 16px;
 }
 
-.scalia-branding-link:hover {
-    opacity: 0.92;
-    transform: translateY(-1px);
+.scalia-branding-link::before {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: -25px;
+    width: 170px;
+    height: 110px;
+    border-radius: 50%;
+    border-top: 1.2px solid rgba(216, 193, 160, 0.55);
+    background: linear-gradient(320deg, rgba(251, 250, 247, 0.6) 0%, rgba(200, 168, 122, 0.12) 60%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+    transform: rotate(14deg);
+}
+
+.scalia-branding-link::after {
+    content: '';
+    position: absolute;
+    bottom: -14px;
+    right: -30px;
+    width: 180px;
+    height: 120px;
+    border-radius: 50%;
+    border-top: 1.2px solid rgba(216, 193, 160, 0.55);
+    background: linear-gradient(40deg, rgba(251, 250, 247, 0.6) 0%, rgba(200, 168, 122, 0.12) 60%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+    transform: rotate(-12deg);
+}
+
+@media (hover: hover) {
+    .scalia-branding-link:hover {
+        opacity: 0.95;
+        transform: translateY(-1px);
+    }
 }
 
 .scalia-branding-link:active {
-    transform: scale(0.98);
+    transform: scale(0.99);
 }
 
-.powered-by {
-    font-size: 1.05rem;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.92);
-    letter-spacing: 0.35px;
-}
-
-.scalia-logo {
-    height: 44px;
-    width: auto;
-    object-fit: contain;
+/* Image officielle Powered by Scalia (PNG fourni sans déformation ni recoloration) */
+.scalia-branding-img {
+    position: relative;
+    z-index: 5;
+    width: clamp(230px, 50vw, 310px);
+    height: auto;
     display: block;
-    filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.55));
+    object-fit: contain;
+    filter: drop-shadow(0 4px 16px rgba(158, 125, 82, 0.20)) drop-shadow(0 2px 4px rgba(4, 17, 31, 0.08));
 }
 
 /* =========================================
    RESPONSIVE
    ========================================= */
+
 @media (max-width: 390px) {
     .cards-section {
         padding: 0 12px;
@@ -658,23 +703,11 @@ html, body {
     .info-value.number {
         font-size: clamp(0.96rem, 4vw, 1.15rem);
     }
+}
 
-    .footer-wave-wrap {
-        height: 180px;
-    }
-
-    .scalia-branding-link {
-        margin-bottom: 24px;
-        gap: 12px;
-        padding: 6px 12px;
-    }
-
-    .powered-by {
-        font-size: 0.92rem;
-    }
-
-    .scalia-logo {
-        height: 38px;
+@media (max-width: 360px) {
+    .scalia-branding-img {
+        width: 200px;
     }
 }
 
