@@ -1,66 +1,56 @@
 // =========================================
-// OFFICIAL BANK APPS CONFIGURATION
+// OFFICIAL BANK CONFIGURATION
 // =========================================
-const BANK_CONFIG = {
-    'banreservas': {
+const BANKS = {
+    banreservas: {
         name: 'Banreservas',
         account: '9607307847',
-        package: 'com.banreservas.tubancoappmobile',
-        // Android: Intent officiel ciblant le package vérifié avec launcher activity en priorité, fallback Google Play si non installée
-        android: 'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=com.banreservas.tubancoappmobile;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.banreservas.tubancoappmobile;end;',
-        playStore: 'https://play.google.com/store/apps/details?id=com.banreservas.tubancoappmobile',
-        iosAppStoreId: '1164823611',
-        ios: 'https://apps.apple.com/do/app/banreservas/id1164823611',
-        fallback: 'https://www.banreservas.com'
+        androidPackage: 'com.banreservas.tubancoappmobile',
+        androidFallback: 'https://play.google.com/store/apps/details?id=com.banreservas.tubancoappmobile',
+        iosSchemeOrUniversalLink: null, // UNVERIFIED: Aucun schéma public vérifié disponible
+        iosFallback: 'https://apps.apple.com/do/app/banreservas/id1170610154',
+        webFallback: 'https://www.banreservas.com'
     },
-    'popular': {
+    popular: {
         name: 'Banco Popular',
         account: '771465069',
-        package: 'do.com.bpd.popularenlinea',
-        // Android: Intent officiel ciblant le package vérifié avec launcher activity en priorité, fallback Google Play si non installée
-        android: 'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=do.com.bpd.popularenlinea;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Ddo.com.bpd.popularenlinea;end;',
-        playStore: 'https://play.google.com/store/apps/details?id=do.com.bpd.popularenlinea',
-        iosAppStoreId: '583475424',
-        ios: 'https://apps.apple.com/do/app/banco-popular-dominicano/id583475424',
-        fallback: 'https://popularenlinea.com'
+        androidPackage: 'com.popular.app.android',
+        androidFallback: 'https://play.google.com/store/apps/details?id=com.popular.app.android',
+        iosSchemeOrUniversalLink: null, // UNVERIFIED: Aucun schéma public vérifié disponible
+        iosFallback: 'https://apps.apple.com/do/app/banco-popular-dominicano/id583475424',
+        webFallback: 'https://popularenlinea.com'
     },
-    'apap': {
+    apap: {
         name: 'Asociación APAP',
         account: '1036444651',
-        package: 'com.apap.movil',
-        // Android: Intent officiel ciblant le package vérifié avec launcher activity en priorité, fallback Google Play si non installée
-        android: 'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=com.apap.movil;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.apap.movil;end;',
-        playStore: 'https://play.google.com/store/apps/details?id=com.apap.movil',
-        iosAppStoreId: '1453915858',
-        ios: 'https://apps.apple.com/do/app/m%C3%B3vil-apap/id1453915858',
-        fallback: 'https://apap.com.do'
+        androidPackage: 'com.apapmovilprod',
+        androidFallback: 'https://play.google.com/store/apps/details?id=com.apapmovilprod',
+        iosSchemeOrUniversalLink: null, // UNVERIFIED: Aucun schéma public vérifié disponible
+        iosFallback: 'https://apps.apple.com/do/app/m%C3%B3vil-apap/id1073508748',
+        webFallback: 'https://apap.com.do'
     },
-    'bhd': {
+    bhd: {
         name: 'Banco BHD',
         account: '20207090018',
-        package: 'do.bhd.mbanking',
-        // Android: Intent officiel ciblant le package vérifié avec launcher activity en priorité, fallback Google Play si non installée
-        android: 'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=do.bhd.mbanking;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Ddo.bhd.mbanking;end;',
-        playStore: 'https://play.google.com/store/apps/details?id=do.bhd.mbanking',
-        iosAppStoreId: '1438596644',
-        ios: 'https://apps.apple.com/app/m%C3%B3vil-banking-personal-bhd/id1438596644',
-        fallback: 'https://bhd.com.do'
+        androidPackage: 'com.artech.infocorp_bhd.bhd',
+        androidFallback: 'https://play.google.com/store/apps/details?id=com.artech.infocorp_bhd.bhd',
+        iosSchemeOrUniversalLink: null, // UNVERIFIED: Aucun schéma public vérifié disponible
+        iosFallback: 'https://apps.apple.com/do/app/m%C3%B3vil-banking-personal-bhd/id736887202',
+        webFallback: 'https://bhd.com.do'
     },
-    'adopem': {
+    adopem: {
         name: 'Banco Adopem',
         account: '51015000000952',
-        package: 'do.com.adopem.app',
-        // Android: Intent officiel ciblant le package vérifié avec launcher activity en priorité, fallback Google Play si non installée
-        android: 'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=do.com.adopem.app;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Ddo.com.adopem.app;end;',
-        playStore: 'https://play.google.com/store/apps/details?id=do.com.adopem.app',
-        iosAppStoreId: '1456637385',
-        ios: 'https://apps.apple.com/app/appdopem/id1456637385',
-        fallback: 'https://bancoadopem.com.do'
+        androidPackage: 'org.mfbbva.mobile.adp',
+        androidFallback: 'https://play.google.com/store/apps/details?id=org.mfbbva.mobile.adp',
+        iosSchemeOrUniversalLink: null, // UNVERIFIED: Aucun schéma public vérifié disponible
+        iosFallback: 'https://apps.apple.com/do/app/appdopem/id1516815961',
+        webFallback: 'https://bancoadopem.com.do'
     }
 };
 
 /**
- * Détection légère de la plateforme
+ * Détection de la plateforme d'exécution
  */
 function detectPlatform() {
     const ua = navigator.userAgent || navigator.vendor || window.opera || '';
@@ -70,43 +60,119 @@ function detectPlatform() {
 }
 
 /**
- * Ouvre l'application bancaire ou son fallback selon la plateforme
+ * Copie asynchrone dans le presse-papiers avec fallback
+ */
+async function copyAccount(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+        try {
+            await navigator.clipboard.writeText(text);
+            return true;
+        } catch (err) {
+            // Fallback ci-dessous si refusé ou non sécurisé
+        }
+    }
+    return fallbackCopy(text);
+}
+
+/**
+ * Méthode de copie de secours pour contextes non sécurisés
+ */
+function fallbackCopy(text) {
+    try {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.setAttribute('readonly', '');
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-9999px';
+        textArea.style.top = '0';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        const successful = document.execCommand('copy');
+        document.body.removeChild(textArea);
+        return successful;
+    } catch (e) {
+        console.error('Fallback copy error:', e);
+        return false;
+    }
+}
+
+/**
+ * Déclenchement du feedback visuel "✓ Copiado"
+ */
+function showCopyFeedback(btn) {
+    const icon = btn.querySelector('i');
+    const textSpan = btn.querySelector('.btn-text');
+    if (!icon || !textSpan) return;
+
+    const origIcon = icon.className;
+    const origText = textSpan.textContent;
+
+    icon.className = 'fa-solid fa-check';
+    textSpan.textContent = 'Copiado';
+
+    btn.style.transform = 'scale(0.97)';
+    setTimeout(() => {
+        btn.style.transform = '';
+    }, 100);
+
+    setTimeout(() => {
+        icon.className = origIcon;
+        textSpan.textContent = origText;
+    }, 1400);
+}
+
+/**
+ * Ouvre l'application bancaire installée ou son fallback
  */
 function openBankApp(bankKey) {
-    const config = BANK_CONFIG[bankKey];
-    if (!config) return;
+    const bank = BANKS[bankKey];
+    if (!bank) return;
 
     const platform = detectPlatform();
 
-    // Délai court de 200ms pour s'assurer que le feedback 'Copiado' est visible
-    // tout en conservant l'activation utilisateur pour le lancement de l'application
-    setTimeout(() => {
-        if (platform === 'android' && config.android) {
-            // Priorité Android: Intent ciblant directement l'application installée
-            // Fallback Play Store uniquement si non installée
-            try {
-                const link = document.createElement('a');
-                link.href = config.android;
-                link.rel = 'noopener noreferrer';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            } catch (e) {
-                window.location.href = config.android;
-            }
-        } else if (platform === 'ios' && config.ios) {
-            // Priorité iOS: redirection vers la fiche App Store officielle vérifiée
-            // (qui propose directement le bouton "Ouvrir" si installée, sans erreur Safari)
-            window.location.href = config.ios;
+    if (platform === 'android') {
+        // Intent standard Chrome Android: cible le package officiel de l'application installée.
+        // Si l'application n'est pas installée, Chrome navigue automatiquement vers S.browser_fallback_url.
+        const intentUrl = `intent://#Intent;package=${bank.androidPackage};S.browser_fallback_url=${encodeURIComponent(bank.androidFallback)};end;`;
+        window.location.href = intentUrl;
+    } else if (platform === 'ios') {
+        // Sur iOS, les banques dominicaines ne fournissent aucun schéma d'URL public officiel.
+        // Fallback sécurisé vers l'App Store officiel (bouton "Ouvrir" si l'app est installée).
+        if (bank.iosSchemeOrUniversalLink) {
+            window.location.href = bank.iosSchemeOrUniversalLink;
         } else {
-            // Sur desktop: ouverture propre du portail bancaire dans un nouvel onglet
-            window.open(config.fallback, '_blank', 'noopener,noreferrer');
+            window.location.href = bank.iosFallback;
         }
-    }, 200);
+    } else {
+        // Desktop: ouverture du site web bancaire dans un nouvel onglet
+        window.open(bank.webFallback, '_blank', 'noopener,noreferrer');
+    }
+}
+
+/**
+ * Action centralisée: Copier -> Feedback -> Ouvrir l'application bancaire
+ */
+async function copyAndOpenBank(btn) {
+    const textToCopy = btn.getAttribute('data-copy');
+    const bankKey = btn.getAttribute('data-bank');
+    if (!textToCopy) return;
+
+    // ÉTAPE 1 (FIRST): Copier immédiatement le numéro
+    await copyAccount(textToCopy);
+
+    // ÉTAPE 2 (THEN): Afficher le feedback visuel
+    showCopyFeedback(btn);
+
+    // ÉTAPE 3 (THEN): Lancer l'application bancaire UNIQUEMENT pour les comptes bancaires
+    // La cédula n'ayant pas de data-bank, elle reste COPY ONLY
+    if (bankKey && BANKS[bankKey]) {
+        openBankApp(bankKey);
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Animations d'entrée en cascade (stagger 60ms)
+    // 1. Animation des cartes en cascade (stagger)
     const cards = document.querySelectorAll('.card');
     cards.forEach((card, index) => {
         setTimeout(() => {
@@ -114,73 +180,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 80 + (index * 60));
     });
 
-    // 2. Gestion de la copie et ouverture d'application
+    // 2. Écouteurs d'événements de clic sur les boutons de copie
     const buttons = document.querySelectorAll('.copy-button');
-
     buttons.forEach(btn => {
-        btn.addEventListener('click', async () => {
-            const textToCopy = btn.getAttribute('data-copy');
-            const bankKey = btn.getAttribute('data-bank');
-            if (!textToCopy) return;
-
-            const triggerFeedback = () => {
-                const icon = btn.querySelector('i');
-                const textSpan = btn.querySelector('.btn-text');
-                
-                const origIcon = icon.className;
-                const origText = textSpan.textContent;
-                
-                // Feedback visuel sans décalage de layout
-                icon.className = 'fa-solid fa-check';
-                textSpan.textContent = 'Copiado';
-                
-                // Micro-pulse
-                btn.style.transform = 'scale(0.97)';
-                setTimeout(() => {
-                    btn.style.transform = '';
-                }, 100);
-                
-                // Rétablissement de l'état initial après 1.4s
-                setTimeout(() => {
-                    icon.className = origIcon;
-                    textSpan.textContent = origText;
-                }, 1400);
-
-                // Si une banque est associée, lancer l'ouverture après le feedback
-                if (bankKey && BANK_CONFIG[bankKey]) {
-                    openBankApp(bankKey);
-                }
-            };
-
-            // ÉTAPE 1: Copier immédiatement dans le presse-papiers
-            if (navigator.clipboard && window.isSecureContext) {
-                try {
-                    await navigator.clipboard.writeText(textToCopy);
-                    triggerFeedback();
-                    return;
-                } catch (err) {
-                    // Fallback ci-dessous si le contexte refuse navigator.clipboard
-                }
-            }
-
-            // Fallback presse-papiers pour contextes non sécurisés ou protocoles locaux
-            try {
-                const textArea = document.createElement('textarea');
-                textArea.value = textToCopy;
-                textArea.style.position = 'fixed';
-                textArea.style.left = '-9999px';
-                textArea.style.top = '0';
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                const successful = document.execCommand('copy');
-                document.body.removeChild(textArea);
-                if (successful) {
-                    triggerFeedback();
-                }
-            } catch (err) {
-                console.error('Erreur de copie:', err);
-            }
-        });
+        btn.addEventListener('click', () => copyAndOpenBank(btn));
     });
 });
