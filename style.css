@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0b1a30; /* Match a dark blue from the gradient to look seamless on desktop if it overflows */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+    background-color: #f4f6f9;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    overflow: hidden;
+}
+
+.background-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.copy-btn {
+    position: absolute;
+    right: 5.5%; /* Positioned exactly in the empty space */
+    width: 27%; /* Fits perfectly without touching the text */
+    height: 4.5%; /* Keeps it a nice capsule shape proportional to image */
+    transform: translateY(-50%); /* Center it exactly at the Y coordinates below */
+    
+    background: linear-gradient(135deg, #0d3b66, #1a5a99);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    
+    box-shadow: 0 4px 10px rgba(13, 59, 102, 0.3);
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
+    z-index: 10;
+}
+
+.copy-btn:hover {
+    transform: translateY(-50%) scale(1.02);
+    box-shadow: 0 6px 14px rgba(13, 59, 102, 0.4);
+}
+
+.copy-btn:active {
+    transform: translateY(-50%) scale(0.96);
+    box-shadow: 0 2px 6px rgba(13, 59, 102, 0.2);
+}
+
+.copy-btn.success {
+    background: linear-gradient(135deg, #10B981, #059669);
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+}
+
+.copy-icon {
+    width: clamp(14px, 3.5vw, 16px);
+    height: clamp(14px, 3.5vw, 16px);
+    flex-shrink: 0;
+}
+
+.btn-text {
+    font-size: clamp(11px, 3vw, 14px);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* 
+Calculated exact centers from the image. 
+*/
+.btn-banreservas { top: 28.84%; }
+.btn-popular     { top: 41.60%; }
+.btn-apap        { top: 54.30%; }
+.btn-bhd         { top: 67.06%; }
+.btn-adopem      { top: 79.75%; }
+
+.scalia-link {
+    position: absolute;
+    bottom: 2%;
+    right: 5%;
+    width: 35%;
+    height: 6%;
+    z-index: 10;
+    cursor: pointer;
+    display: block;
+}
