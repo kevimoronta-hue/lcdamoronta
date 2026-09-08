@@ -569,7 +569,7 @@ html, body {
 .waves-container {
     position: relative;
     width: 100%;
-    height: 180px;
+    height: 205px;
     overflow: hidden;
 }
 
@@ -579,7 +579,7 @@ html, body {
     bottom: 0;
     left: -12%;
     right: -12%;
-    height: 155px;
+    height: 175px;
     border-radius: 65% 55% 0 0 / 60px 48px 0 0;
     background: linear-gradient(175deg, #F5EAE0 0%, #E8D9C3 60%, #DAC7AF 100%);
     border-top: 1px solid rgba(255, 255, 255, 0.9);
@@ -593,7 +593,7 @@ html, body {
     bottom: 0;
     left: -15%;
     right: -8%;
-    height: 124px;
+    height: 140px;
     border-radius: 50% 60% 0 0 / 52px 56px 0 0;
     background: linear-gradient(168deg, #E6CDA2 0%, var(--champagne-gold) 50%, #A88349 100%);
     border-top: 1.5px solid #F9EED9;
@@ -608,7 +608,7 @@ html, body {
     bottom: 0;
     left: -8%;
     right: -16%;
-    height: 90px;
+    height: 106px;
     border-radius: 65% 45% 0 0 / 46px 42px 0 0;
     background: linear-gradient(165deg, var(--champagne-dark) 0%, var(--champagne-graphite) 60%, #44321E 100%);
     border-top: 1.2px solid rgba(245, 230, 204, 0.65);
@@ -623,7 +623,7 @@ html, body {
     bottom: 0;
     left: -10%;
     right: -10%;
-    height: 64px;
+    height: 76px;
     border-radius: 55% 55% 0 0 / 32px 32px 0 0;
     background: linear-gradient(180deg, var(--scalia-blue-light) 0%, var(--scalia-blue-mid) 35%, var(--scalia-blue-deep) 100%);
     border-top: 1.5px solid #D4B277; /* Fine metallic champagne lip separating blue from metal */
@@ -632,7 +632,7 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 6px;
+    padding-top: 8px;
 }
 
 /* Powered by Scalia */
@@ -640,24 +640,24 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 14px;
     position: relative;
     z-index: 5;
 }
 
 .powered-by {
-    font-size: 0.78rem;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.88);
     letter-spacing: 0.3px;
 }
 
 .scalia-logo {
-    height: 25px;
+    height: 38px;
     width: auto;
     object-fit: contain;
     display: block;
-    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
 }
 
 /* =========================================
