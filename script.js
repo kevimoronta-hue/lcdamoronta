@@ -5,56 +5,46 @@ const BANKS = {
     banreservas: {
         name: 'Banreservas',
         account: '9607307847',
-        iosUniversalLink: null,
-        iosScheme: null,
-        iosStore: 'https://apps.apple.com/do/app/banreservas/id1170610154',
         androidPackage: 'com.banreservas.tubancoappmobile',
-        androidAppLinkOrIntent: null,
         androidStore: 'https://play.google.com/store/apps/details?id=com.banreservas.tubancoappmobile',
+        iosLaunch: null,
+        iosStore: 'https://apps.apple.com/do/app/banreservas/id1170610154',
         webFallback: 'https://www.banreservas.com'
     },
     popular: {
         name: 'Banco Popular',
         account: '771465069',
-        iosUniversalLink: null,
-        iosScheme: null,
-        iosStore: 'https://apps.apple.com/do/app/banco-popular-dominicano/id583475424',
         androidPackage: 'com.popular.app.android',
-        androidAppLinkOrIntent: null,
         androidStore: 'https://play.google.com/store/apps/details?id=com.popular.app.android',
+        iosLaunch: null,
+        iosStore: 'https://apps.apple.com/do/app/banco-popular-dominicano/id583475424',
         webFallback: 'https://popularenlinea.com'
     },
     apap: {
         name: 'Asociación APAP',
         account: '1036444651',
-        iosUniversalLink: null,
-        iosScheme: null,
-        iosStore: 'https://apps.apple.com/do/app/m%C3%B3vil-apap/id1073508748',
         androidPackage: 'com.apapmovilprod',
-        androidAppLinkOrIntent: null,
         androidStore: 'https://play.google.com/store/apps/details?id=com.apapmovilprod',
+        iosLaunch: null,
+        iosStore: 'https://apps.apple.com/do/app/m%C3%B3vil-apap/id1073508748',
         webFallback: 'https://apap.com.do'
     },
     bhd: {
         name: 'Banco BHD',
         account: '20207090018',
-        iosUniversalLink: null,
-        iosScheme: null,
-        iosStore: 'https://apps.apple.com/do/app/m%C3%B3vil-banking-personal-bhd/id736887202',
         androidPackage: 'com.artech.infocorp_bhd.bhd',
-        androidAppLinkOrIntent: null,
         androidStore: 'https://play.google.com/store/apps/details?id=com.artech.infocorp_bhd.bhd',
+        iosLaunch: null,
+        iosStore: 'https://apps.apple.com/do/app/m%C3%B3vil-banking-personal-bhd/id736887202',
         webFallback: 'https://bhd.com.do'
     },
     adopem: {
         name: 'Banco Adopem',
         account: '51015000000952',
-        iosUniversalLink: null,
-        iosScheme: null,
-        iosStore: 'https://apps.apple.com/do/app/appdopem/id1516815961',
         androidPackage: 'org.mfbbva.mobile.adp',
-        androidAppLinkOrIntent: null,
         androidStore: 'https://play.google.com/store/apps/details?id=org.mfbbva.mobile.adp',
+        iosLaunch: null,
+        iosStore: 'https://apps.apple.com/do/app/appdopem/id1516815961',
         webFallback: 'https://bancoadopem.com.do'
     }
 };
@@ -163,33 +153,29 @@ function openBankApp(bankKey) {
 
     const platform = detectPlatform();
 
-    if (platform === 'ios') {
-        const targetUrl = bank.iosUniversalLink || bank.iosScheme;
-        const storeFallback = bank.iosStore;
-
-        if (targetUrl) {
+    if (platform === 'android') {
+        // Intent standard Chrome Android: cible le package officiel de l'app installée
+        // S.browser_fallback_url redirige vers Google Play UNIQUEMENT si l'app n'est pas installée
+        const intentUrl = `intent://#Intent;package=${bank.androidPackage};S.browser_fallback_url=${encodeURIComponent(bank.androidStore)};end;`;
+        window.location.href = intentUrl;
+    } else if (platform === 'ios') {
+        // Sur iOS: Si un launcher URI vérifié existe, on le déclenche avec fallback temporisé
+        if (bank.iosLaunch) {
             clearIosFallback();
             iosFallbackTimer = setTimeout(() => {
                 if (!document.hidden) {
-                    window.location.href = storeFallback;
+                    window.location.href = bank.iosStore;
                 }
                 iosFallbackTimer = null;
             }, 2000);
-            window.location.href = targetUrl;
+            window.location.href = bank.iosLaunch;
         } else {
-            // Aucun schéma vérifié disponible: fallback direct App Store
-            // Évite strictement l'erreur fatale Safari "URL non valide"
-            window.location.href = storeFallback;
-        }
-    } else if (platform === 'android') {
-        if (bank.androidAppLinkOrIntent) {
-            window.location.href = bank.androidAppLinkOrIntent;
-        } else {
-            // Aucun Intent/App Link BROWSABLE vérifié: fallback direct Google Play
-            window.location.href = bank.androidStore;
+            // Aucun launcher vérifié: fallback officiel App Store
+            // Évite strictement l'alerte d'erreur Safari "URL non valide"
+            window.location.href = bank.iosStore;
         }
     } else {
-        // Desktop: ouverture du site web bancaire dans un nouvel onglet
+        // Desktop: ouverture du portail web bancaire dans un nouvel onglet
         window.open(bank.webFallback, '_blank', 'noopener,noreferrer');
     }
 }
