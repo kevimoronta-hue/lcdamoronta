@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!--
+    iOS Smart App Banner — TEST PAGE
+    Bank: Banco Adopem / AppDOPEM
+    App Store ID: 1516815961
+
+    HOW TO TEST:
+    1. Open this page in Safari on iPhone
+    2. If Adopem app IS INSTALLED → banner shows "OPEN"
+       Tap "OPEN" → result: does native AppDOPEM app launch?
+    3. If Adopem app is NOT installed → banner shows "GET" / "VIEW"
+
+    DO NOT attempt to programmatically trigger the banner.
+    This is a native iOS Safari feature only.
+  -->
+  <meta name="apple-itunes-app" content="app-id=1516815961" />
+
+  <title>iOS TEST — Adopem Smart App Banner</title>
+  <style>
+    body {
+      font-family: -apple-system, system-ui, sans-serif;
+      background: #0f0f0f;
+      color: #f0f0f0;
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 48px 24px 32px;
+    }
+    .label { font-size: 0.75rem; color: #666; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+    h1 { font-size: 1.4rem; margin: 0 0 8px; }
+    .appid { font-size: 0.8rem; color: #888; margin-bottom: 32px; }
+    .box {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      padding: 20px 18px;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: #ccc;
+    }
+    .box strong { color: #fff; }
+    .box code { color: #60a5fa; font-size: 0.8rem; }
+    hr { border: none; border-top: 1px solid #2a2a2a; margin: 16px 0; }
+    .tag { display: inline-block; background: #1e3a5f; color: #93c5fd; font-size: 0.72rem; padding: 2px 8px; border-radius: 4px; margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+
+  <div class="label">iOS Test — Smart App Banner</div>
+  <h1>Banco Adopem</h1>
+  <div class="appid">App Store ID: <strong>1516815961</strong></div>
+
+  <div class="box">
+    <span class="tag">HOW TO TEST</span><br>
+    1. Open this page in <strong>Safari on iPhone</strong>.<br>
+    2. Look for the banner at the <strong>top of Safari</strong>.<br>
+    <hr>
+    <strong>If Adopem app IS installed:</strong><br>
+    Banner shows <code>OPEN</code> → tap it.<br>
+    Record: did the native AppDOPEM app open?<br>
+    <hr>
+    <strong>If Adopem app is NOT installed:</strong><br>
+    Banner shows <code>GET</code> or <code>VIEW</code>.<br>
+    Record: app not present on device.
+  </div>
+
+</body>
+</html>
