@@ -51,7 +51,7 @@ const BANKS = {
     },
     adopem: {
         name: 'Banco Adopem',
-        account: '51015000000952',
+        account: '51012000175795',
         appLink: null,
         androidPackage: 'org.mfbbva.mobile.adp',
         androidStore: 'https://play.google.com/store/apps/details?id=org.mfbbva.mobile.adp',
@@ -111,14 +111,12 @@ function showCopyFeedback(btn) {
     icon.className = 'fa-solid fa-check';
     textSpan.textContent = 'Copiado';
 
-    btn.style.transform = 'scale(0.97)';
-    setTimeout(() => {
-        btn.style.transform = '';
-    }, 100);
+    btn.classList.add('is-copied');
 
     setTimeout(() => {
         icon.className = origIcon;
         textSpan.textContent = origText;
+        btn.classList.remove('is-copied');
     }, 1400);
 }
 
@@ -182,6 +180,9 @@ async function copyAndOpenBank(btn) {
     }
 }
 
+
+// iOS Safari n'applique :active (feedback de pression) qu'avec un écouteur tactile.
+document.addEventListener('touchstart', () => {}, { passive: true });
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Animation d'entrée des cartes en cascade

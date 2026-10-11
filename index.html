@@ -2,156 +2,147 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Cuentas Bancarias - Scalia</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+    <meta name="theme-color" content="#F6EEDF">
+    <title>Cuentas Bancarias · Xiomara Moronta Santos</title>
+    <link rel="preload" as="image" href="assets/scalia-bg-mobile.jpg" media="(max-width: 899px)">
+    <link rel="preload" as="image" href="assets/scalia-bg-desktop.jpg" media="(min-width: 900px)">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="page-container">
-        
-        <header class="header-section">
-            <h1 class="page-title">CUENTAS BANCARIAS</h1>
-            <p class="page-subtitle">Datos para transferencias</p>
-        </header>
+    <div class="backdrop" aria-hidden="true"></div>
 
-        <main class="cards-section" id="cards-container">
-            
-            <!-- Titular de las cuentas -->
-            <div class="card titular-card">
-                <div class="card-icon-col">
-                    <div class="avatar-icon"><i class="fa-solid fa-user"></i></div>
-                </div>
-                <div class="card-info-col">
-                    <div class="info-row">
-                        <span class="info-label">Titular de las cuentas</span>
-                        <span class="info-value name">Xiomara Moronta Santos</span>
-                    </div>
-                    <div class="info-row inline-row">
-                        <span class="info-label">Número de cédula</span>
-                        <span class="info-value">228-0000149-1</span>
-                    </div>
-                </div>
-                <div class="card-action-col">
-                    <button class="copy-button" data-copy="228-0000149-1" aria-label="Copiar cédula">
-                        <i class="fa-regular fa-copy"></i>
-                        <span class="btn-text">Copiar</span>
-                    </button>
-                </div>
-            </div>
+    <div class="page">
 
-            <!-- Banreservas -->
-            <div class="card bank-card bank-banreservas">
-                <div class="card-logo-col">
-                    <img src="assets/banco-banreservas.png" alt="Banreservas"> 
-                </div>
-                <div class="card-info-col">
-                    <div class="account-type"><i class="fa-solid fa-piggy-bank"></i> Cuenta de ahorro</div>
-                    <div class="info-row">
-                        <span class="info-label">Número de cuenta</span>
-                        <span class="info-value number">9607307847</span>
-                    </div>
-                </div>
-                <div class="card-action-col">
-                    <button class="copy-button" data-copy="9607307847" data-bank="banreservas" aria-label="Copiar cuenta Banreservas">
-                        <i class="fa-regular fa-copy"></i>
-                        <span class="btn-text">Copiar</span>
-                    </button>
-                </div>
-            </div>
+        <!-- Colonne identité -->
+        <aside class="identity-col">
+            <header class="page-header">
+                <span class="eyebrow">Datos para transferencias</span>
+                <h1 class="page-title">Cuentas<br class="title-break"> bancarias</h1>
+            </header>
 
-            <!-- Banco Popular -->
-            <div class="card bank-card bank-popular">
-                <div class="card-logo-col">
-                    <img src="assets/banco-popular.png" alt="Banco Popular">
-                </div>
-                <div class="card-info-col">
-                    <div class="account-type"><i class="fa-solid fa-piggy-bank"></i> Cuenta de ahorro</div>
-                    <div class="info-row">
-                        <span class="info-label">Número de cuenta</span>
-                        <span class="info-value number">771465069</span>
+            <section class="card identity-card" aria-label="Titular de las cuentas">
+                <figure class="identity-photo">
+                    <img src="assets/titular.jpg" alt="Xiomara Moronta Santos" width="640" height="800">
+                </figure>
+                <div class="identity-info">
+                    <span class="label">Titular de las cuentas</span>
+                    <p class="identity-name">Xiomara Moronta Santos</p>
+                    <div class="identity-id">
+                        <div>
+                            <span class="label">Cédula</span>
+                            <span class="identity-id-value">228-0000149-1</span>
+                        </div>
+                        <button class="copy-button btn-gold btn-gold--compact" data-copy="228-0000149-1" aria-label="Copiar cédula">
+                            <i class="fa-regular fa-copy"></i>
+                            <span class="btn-text">Copiar</span>
+                        </button>
                     </div>
                 </div>
-                <div class="card-action-col">
-                    <button class="copy-button" data-copy="771465069" data-bank="popular" aria-label="Copiar cuenta Banco Popular">
-                        <i class="fa-regular fa-copy"></i>
-                        <span class="btn-text">Copiar</span>
-                    </button>
-                </div>
-            </div>
+            </section>
 
-            <!-- APAP -->
-            <div class="card bank-card bank-apap">
-                <div class="card-logo-col">
-                    <img src="assets/banco-apap.png" alt="Asociación APAP">
-                </div>
-                <div class="card-info-col">
-                    <div class="account-type"><i class="fa-solid fa-piggy-bank"></i> Cuenta de ahorro</div>
-                    <div class="info-row">
-                        <span class="info-label">Número de cuenta</span>
-                        <span class="info-value number">1036444651</span>
-                    </div>
-                </div>
-                <div class="card-action-col">
-                    <button class="copy-button" data-copy="1036444651" data-bank="apap" aria-label="Copiar cuenta APAP">
-                        <i class="fa-regular fa-copy"></i>
-                        <span class="btn-text">Copiar</span>
-                    </button>
-                </div>
-            </div>
+            <p class="hint">
+                <i class="fa-solid fa-hand-pointer"></i>
+                <span>Toca <strong>Copiar</strong>: el número se copia y se abre la app de tu banco.</span>
+            </p>
+        </aside>
 
-            <!-- Banco BHD -->
-            <div class="card bank-card bank-bhd">
-                <div class="card-logo-col">
-                    <img src="assets/banco-bhd.png" alt="Banco BHD">
-                </div>
-                <div class="card-info-col">
-                    <div class="account-type"><i class="fa-solid fa-piggy-bank"></i> Cuenta de ahorro</div>
-                    <div class="info-row">
-                        <span class="info-label">Número de cuenta</span>
-                        <span class="info-value number">20207090018</span>
-                    </div>
-                </div>
-                <div class="card-action-col">
-                    <button class="copy-button" data-copy="20207090018" data-bank="bhd" aria-label="Copiar cuenta Banco BHD">
-                        <i class="fa-regular fa-copy"></i>
-                        <span class="btn-text">Copiar</span>
-                    </button>
-                </div>
-            </div>
+        <!-- Colonne comptes -->
+        <main class="accounts" id="cards-container">
 
-            <!-- Banco Adopem -->
-            <div class="card bank-card bank-adopem">
-                <div class="card-logo-col">
-                    <img src="assets/banco-adopem.png" alt="Banco Adopem">
-                </div>
-                <div class="card-info-col">
-                    <div class="account-type"><i class="fa-solid fa-piggy-bank"></i> Cuenta de ahorro</div>
-                    <div class="info-row">
-                        <span class="info-label">Número de cuenta</span>
-                        <span class="info-value number">51015000000952</span>
+            <article class="card bank-card bank--banreservas">
+                <div class="bank-logo"><img src="assets/banco-banreservas.png" alt="Banreservas"></div>
+                <div class="account-number">
+                    <div class="account-meta">
+                        <span class="label">Número de cuenta</span>
+                        <span class="account-type"><i class="fa-solid fa-piggy-bank" aria-hidden="true"></i>Ahorro</span>
                     </div>
+                    <span class="number">9607307847</span>
                 </div>
-                <div class="card-action-col">
-                    <button class="copy-button" data-copy="51015000000952" data-bank="adopem" aria-label="Copiar cuenta Banco Adopem">
-                        <i class="fa-regular fa-copy"></i>
-                        <span class="btn-text">Copiar</span>
-                    </button>
+                <button class="copy-button btn-gold btn-gold--compact" data-copy="9607307847" data-bank="banreservas" aria-label="Copiar cuenta Banreservas">
+                    <i class="fa-regular fa-copy"></i>
+                    <span class="btn-text">Copiar</span>
+                </button>
+            </article>
+
+            <article class="card bank-card bank--popular">
+                <div class="bank-logo"><img src="assets/banco-popular.png" alt="Banco Popular"></div>
+                <div class="account-number">
+                    <div class="account-meta">
+                        <span class="label">Número de cuenta</span>
+                        <span class="account-type"><i class="fa-solid fa-piggy-bank" aria-hidden="true"></i>Ahorro</span>
+                    </div>
+                    <span class="number">771465069</span>
                 </div>
-            </div>
+                <button class="copy-button btn-gold btn-gold--compact" data-copy="771465069" data-bank="popular" aria-label="Copiar cuenta Banco Popular">
+                    <i class="fa-regular fa-copy"></i>
+                    <span class="btn-text">Copiar</span>
+                </button>
+            </article>
+
+            <article class="card bank-card bank--apap">
+                <div class="bank-logo"><img src="assets/banco-apap.png" alt="Asociación APAP"></div>
+                <div class="account-number">
+                    <div class="account-meta">
+                        <span class="label">Número de cuenta</span>
+                        <span class="account-type"><i class="fa-solid fa-piggy-bank" aria-hidden="true"></i>Ahorro</span>
+                    </div>
+                    <span class="number">1036444651</span>
+                </div>
+                <button class="copy-button btn-gold btn-gold--compact" data-copy="1036444651" data-bank="apap" aria-label="Copiar cuenta APAP">
+                    <i class="fa-regular fa-copy"></i>
+                    <span class="btn-text">Copiar</span>
+                </button>
+            </article>
+
+            <article class="card bank-card bank--bhd">
+                <div class="bank-logo"><img src="assets/banco-bhd.png" alt="Banco BHD"></div>
+                <div class="account-number">
+                    <div class="account-meta">
+                        <span class="label">Número de cuenta</span>
+                        <span class="account-type"><i class="fa-solid fa-piggy-bank" aria-hidden="true"></i>Ahorro</span>
+                    </div>
+                    <span class="number">20207090018</span>
+                </div>
+                <button class="copy-button btn-gold btn-gold--compact" data-copy="20207090018" data-bank="bhd" aria-label="Copiar cuenta Banco BHD">
+                    <i class="fa-regular fa-copy"></i>
+                    <span class="btn-text">Copiar</span>
+                </button>
+            </article>
+
+            <article class="card bank-card bank--adopem">
+                <div class="bank-logo"><img src="assets/banco-adopem.png" alt="Banco Adopem"></div>
+                <div class="account-number">
+                    <div class="account-meta">
+                        <span class="label">Número de cuenta</span>
+                        <span class="account-type"><i class="fa-solid fa-piggy-bank" aria-hidden="true"></i>Ahorro</span>
+                    </div>
+                    <span class="number">51012000175795</span>
+                </div>
+                <button class="copy-button btn-gold btn-gold--compact" data-copy="51012000175795" data-bank="adopem" aria-label="Copiar cuenta Banco Adopem">
+                    <i class="fa-regular fa-copy"></i>
+                    <span class="btn-text">Copiar</span>
+                </button>
+            </article>
 
         </main>
-        
-        <!-- Scalia Footer (Harmonisé avec le Header) -->
-        <footer class="footer-section" role="contentinfo">
-            <a href="https://scalia.do" target="_blank" rel="noopener noreferrer" class="scalia-branding-link" aria-label="Visiter Scalia">
-                <img src="assets/powered-by-scalia.png" alt="Powered by Scalia" class="scalia-branding-img">
-            </a>
+
+        <footer class="page-footer" role="contentinfo">
+            <div class="footer-center">
+                <a href="https://scalia.do" target="_blank" rel="noopener noreferrer" class="powered-link" aria-label="Powered by Scalia — visitar scalia.do">
+                    <img src="assets/powered-by-scalia-gold.png" alt="Powered by Scalia" width="900" height="264">
+                </a>
+            </div>
+            <img src="assets/scaly.webp" alt="" class="scaly" width="321" height="420" aria-hidden="true">
+            <a class="cta-whatsapp btn-gold btn-gold--large" href="https://wa.me/33769965798?text=Hola%2C%20quisiera%20contratar%20el%20portal%20de%20transferencia%20por%20RD%242%2C000.%20%C2%BFMe%20puedes%20ayudar%2C%20por%20favor%3F" target="_blank" rel="noopener noreferrer">¿Quieres uno igual? Solicítalo aquí</a>
         </footer>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
