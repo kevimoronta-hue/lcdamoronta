@@ -4,21 +4,25 @@
 // =========================================
 //
 // iOS (test physique iPhone 2026-10-12) :
-//   Banreservas → tubancoapp://   Popular → popular://   BHD → com.do.bhd.V4TLL69EK8://
+//   Banreservas → tubancoapp://   Popular → popular://   BHD → https://link.bhd.com.do/
 //   APAP → Universal Link movil.apap.com.do   Adopem → App Store
 //
 // Android — le package est la source de vérité (androidApp()) :
-//   1. directLink confirmé : App Link BHD / APAP (assetlinks.json + Google DAL)
+//   1. directLink confirmé : BHD → https://link.bhd.com.do/ tel quel ; APAP → App Link en intent
 //   2. sinon market://details?id=<package>  (validé physiquement : Banreservas, Popular, Adopem)
 //   3. sinon https://play.google.com/store/apps/details?id=<package>
 //
 // Desktop → copie seule, aucune navigation.
 
-/** Construit la config Android d'une banque à partir de son package. */
-function androidApp(packageName, directLink = null) {
+/**
+ * Construit la config Android d'une banque à partir de son package.
+ * opts.plain = true → le directLink est ouvert tel quel (sans intent) — cas BHD.
+ */
+function androidApp(packageName, directLink = null, opts = {}) {
     return {
         packageName,
         directLink,
+        directLinkPlain: !!opts.plain,
         marketUrl: `market://details?id=${packageName}`,
         storeUrl: `https://play.google.com/store/apps/details?id=${packageName}`,
     };
@@ -51,10 +55,10 @@ const BANKS = {
     bhd: {
         name: 'Banco BHD',
         account: '20207090018',
-        iosScheme: 'com.do.bhd.V4TLL69EK8://',   // validé iPhone 2026-10-12
+        // Lien direct BHD, prioritaire sur iOS ET Android (ouvre l'app ; sinon page officielle BHD)
         appLink: 'https://link.bhd.com.do/',
         iosStore: null,
-        android: androidApp('com.artech.infocorp_bhd.bhd', 'https://link.bhd.com.do/'),
+        android: androidApp('com.artech.infocorp_bhd.bhd', 'https://link.bhd.com.do/', { plain: true }),
     },
     adopem: {
         name: 'Banco Adopem',
@@ -143,7 +147,8 @@ function platformName() {
 
 /**
  * Choisit comment ouvrir l'app bancaire. Toutes les données viennent de src/banks.mjs.
- *   ANDROID : 1. directLink confirmé — App Link https (intent ciblé sur le package)
+ *   ANDROID : 1. directLink confirmé — ouvert tel quel si directLinkPlain (BHD),
+ *                sinon App Link https (intent ciblé sur le package)
  *                ou schéma custom testé sur Android (intent scheme + package),
  *                avec fallback Play Store porté par l'intent
  *             2. market://details?id=<package>  (fiche Play Store, validé physiquement)
@@ -156,6 +161,9 @@ function resolveBankLaunch(bank) {
         const a = bank.android;
         if (!a) return null;
         const fb = a.storeUrl ? `S.browser_fallback_url=${encodeURIComponent(a.storeUrl)};` : '';
+        if (a.directLink && a.directLinkPlain) {
+            return { method: 'android-directlink', url: a.directLink, fallback: null };
+        }
         if (a.directLink && a.packageName) {
             if (/^https:\/\//i.test(a.directLink)) {
                 const u = new URL(a.directLink);
