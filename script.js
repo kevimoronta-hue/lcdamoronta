@@ -1,62 +1,68 @@
 // =========================================
 // OFFICIAL BANK CONFIGURATION (SOURCE DE VÉRITÉ)
+// Même logique que le template portal-transferencia (src/banks.mjs + src/app.js).
 // =========================================
+//
+// iOS (test physique iPhone 2026-10-12) :
+//   Banreservas → tubancoapp://   Popular → popular://   BHD → com.do.bhd.V4TLL69EK8://
+//   APAP → Universal Link movil.apap.com.do   Adopem → App Store
+//
+// Android — le package est la source de vérité (androidApp()) :
+//   1. directLink confirmé : App Link BHD / APAP (assetlinks.json + Google DAL)
+//   2. sinon market://details?id=<package>  (validé physiquement : Banreservas, Popular, Adopem)
+//   3. sinon https://play.google.com/store/apps/details?id=<package>
+//
+// Desktop → copie seule, aucune navigation.
 
-// Verified HTTPS Universal Link / Android App Link (AASA + assetlinks.json confirmed):
-//   APAP → https://movil.apap.com.do/  (AASA: GCVY7C8QQ9.apapmovilprod | assetlinks: com.apapmovilprod)
-//   BHD  → https://link.bhd.com.do/   (AASA: V4TLL69EK8.com.do.bhd.V4TLL69EK8 | assetlinks: com.artech.infocorp_bhd.bhd)
-//   Both verified on real device ✅
-//
-// Android intent (package= with Play Store fallback):
-//   Banreservas, Popular, Adopem — no public HTTPS App Link found after exhaustive domain scan.
-//   intent://#Intent;package=<pkg>;S.browser_fallback_url=<store>;end;
-//   Chrome Android: opens app if installed, falls back to Play Store if not.
-//
-// iOS — Banreservas / Popular / Adopem:
-//   No verified Universal Link or custom URL scheme found.
-//   Fallback: App Store listing via apps.apple.com
+/** Construit la config Android d'une banque à partir de son package. */
+function androidApp(packageName, directLink = null) {
+    return {
+        packageName,
+        directLink,
+        marketUrl: `market://details?id=${packageName}`,
+        storeUrl: `https://play.google.com/store/apps/details?id=${packageName}`,
+    };
+}
 
 const BANKS = {
     banreservas: {
         name: 'Banreservas',
         account: '9607307847',
+        iosScheme: 'tubancoapp://',   // validé iPhone 2026-10-12
         appLink: null,
-        androidPackage: 'com.banreservas.tubancoappmobile',
-        androidStore: 'https://play.google.com/store/apps/details?id=com.banreservas.tubancoappmobile',
-        iosStore: 'https://apps.apple.com/do/app/banreservas/id1170610154'
+        iosStore: 'https://apps.apple.com/do/app/banreservas/id1170610154',
+        android: androidApp('com.banreservas.tubancoappmobile'),   // market:// validé Android 2026-10-12
     },
     popular: {
         name: 'Banco Popular',
         account: '771465069',
+        iosScheme: 'popular://',   // validé iPhone 2026-10-12
         appLink: null,
-        androidPackage: 'com.popular.app.android',
-        androidStore: 'https://play.google.com/store/apps/details?id=com.popular.app.android',
-        iosStore: 'https://apps.apple.com/do/app/banco-popular-dominicano/id583475424'
+        iosStore: 'https://apps.apple.com/do/app/banco-popular-dominicano/id583475424',
+        android: androidApp('com.popular.app.android'),   // market:// validé Android 2026-10-12
     },
     apap: {
         name: 'Asociación APAP',
         account: '1036444651',
-        appLink: 'https://movil.apap.com.do/', // Verified iOS + Android HTTPS App Link ✅
-        androidPackage: null,
-        androidStore: null,
-        iosStore: null
+        appLink: 'https://movil.apap.com.do/',
+        iosStore: null,
+        android: androidApp('com.apapmovilprod', 'https://movil.apap.com.do/'),
     },
     bhd: {
         name: 'Banco BHD',
         account: '20207090018',
-        appLink: 'https://link.bhd.com.do/',  // Verified iOS + Android HTTPS App Link ✅
-        androidPackage: null,
-        androidStore: null,
-        iosStore: null
+        iosScheme: 'com.do.bhd.V4TLL69EK8://',   // validé iPhone 2026-10-12
+        appLink: 'https://link.bhd.com.do/',
+        iosStore: null,
+        android: androidApp('com.artech.infocorp_bhd.bhd', 'https://link.bhd.com.do/'),
     },
     adopem: {
         name: 'Banco Adopem',
         account: '51012000175795',
         appLink: null,
-        androidPackage: 'org.mfbbva.mobile.adp',
-        androidStore: 'https://play.google.com/store/apps/details?id=org.mfbbva.mobile.adp',
-        iosStore: 'https://apps.apple.com/do/app/appdopem/id1516815961'
-    }
+        iosStore: 'https://apps.apple.com/do/app/appdopem/id1516815961',
+        android: androidApp('org.mfbbva.mobile.adp'),   // market:// validé Android 2026-10-12
+    },
 };
 
 /**
@@ -121,63 +127,147 @@ function showCopyFeedback(btn) {
 }
 
 
-/**
- * Returns true when running on Android (Chrome or Samsung Internet).
- * Used to select between Android intent and iOS App Store fallback.
- * APAP and BHD bypass this entirely via verified HTTPS App Links.
- */
 function isAndroid() {
     return /android/i.test(navigator.userAgent);
 }
 
+/** iPhone / iPod / iPad (iPadOS se présente comme un Mac tactile). */
+function isIOS() {
+    return /iphone|ipad|ipod/i.test(navigator.userAgent)
+        || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+
+function platformName() {
+    return isAndroid() ? 'android' : isIOS() ? 'ios' : 'desktop';
+}
+
 /**
- * Action centralisée: Copier → Feedback → Ouvrir l'app.
- *
- * APAP / BHD (appLink set):
- *   iOS + Android → window.location.href vers le HTTPS App Link vérifié.
- *   L'OS intercèpte si l'app est installée (Universal Link / App Link confirmés ✅).
- *
- * Banreservas / Popular / Adopem:
- *   Android → intent avec package + S.browser_fallback_url Play Store
- *             Si app installée → app ouverte.
- *             Si app absente  → Play Store (fallback encodé dans l'intent).
- *   iOS     → App Store officiel (aucun Universal Link ou scheme vérifié disponible).
- *
- * Cédula (pas d'attribut data-bank) → copy-only, aucune navigation.
+ * Choisit comment ouvrir l'app bancaire. Toutes les données viennent de src/banks.mjs.
+ *   ANDROID : 1. directLink confirmé — App Link https (intent ciblé sur le package)
+ *                ou schéma custom testé sur Android (intent scheme + package),
+ *                avec fallback Play Store porté par l'intent
+ *             2. market://details?id=<package>  (fiche Play Store, validé physiquement)
+ *             3. https://play.google.com/store/apps/details?id=<package> si market:// échoue
+ *   IOS     : iosScheme validé → Universal Link → App Store
+ *   DESKTOP : null (copie uniquement)
  */
-async function copyAndOpenBank(btn) {
+function resolveBankLaunch(bank) {
+    if (isAndroid()) {
+        const a = bank.android;
+        if (!a) return null;
+        const fb = a.storeUrl ? `S.browser_fallback_url=${encodeURIComponent(a.storeUrl)};` : '';
+        if (a.directLink && a.packageName) {
+            if (/^https:\/\//i.test(a.directLink)) {
+                const u = new URL(a.directLink);
+                return { method: 'android-applink', url: `intent://${u.host}${u.pathname}${u.search}#Intent;scheme=https;package=${a.packageName};${fb}end;`, fallback: a.storeUrl };
+            }
+            const scheme = a.directLink.replace(/:.*$/, '');
+            return { method: 'android-scheme', url: `intent://#Intent;scheme=${scheme};package=${a.packageName};${fb}end;`, fallback: a.storeUrl };
+        }
+        if (a.marketUrl) return { method: 'android-market', url: a.marketUrl, fallback: a.storeUrl, fallbackIfStillVisible: true };
+        if (a.storeUrl) return { method: 'android-store', url: a.storeUrl, fallback: null };
+        return null;
+    }
+    if (isIOS()) {
+        if (bank.iosScheme) return { method: 'ios-scheme', url: bank.iosScheme, fallback: null };
+        if (bank.appLink) return { method: 'ios-universal-link', url: bank.appLink, fallback: null };
+        if (bank.iosStore) return { method: 'ios-store', url: bank.iosStore, fallback: null };
+    }
+    return null;
+}
+
+// ---------------------------------------------------------------------
+//  Mode debug : ?bankdebug=1 — banque, plateforme, méthode, URL, fallback,
+//  événements de mise en arrière-plan. Jamais de numéro de compte.
+// ---------------------------------------------------------------------
+const BANK_DEBUG = /[?&]bankdebug=1(?:&|$)/.test(location.search);
+let bankDebugEl = null;
+let bankDebugT0 = 0;
+
+function bankDebug(msg) {
+    if (!BANK_DEBUG) return;
+    if (!bankDebugEl) {
+        bankDebugEl = document.createElement('pre');
+        bankDebugEl.setAttribute('aria-hidden', 'true');
+        bankDebugEl.style.cssText = 'position:fixed;left:8px;right:8px;bottom:8px;max-height:38vh;overflow:auto;z-index:9999;margin:0;padding:8px;border-radius:10px;background:rgba(0,0,0,.85);color:#9fe6a0;font:11px/1.4 ui-monospace,Menlo,monospace;white-space:pre-wrap;word-break:break-all;';
+        document.body.appendChild(bankDebugEl);
+        try { bankDebugEl.textContent = sessionStorage.getItem('bankdebug-log') || ''; } catch (e) { /* stockage indisponible */ }
+    }
+    const t = bankDebugT0 ? `+${((performance.now() - bankDebugT0) / 1000).toFixed(2)}s` : new Date().toLocaleTimeString();
+    bankDebugEl.textContent += `[${t}] ${msg}\n`;
+    bankDebugEl.scrollTop = bankDebugEl.scrollHeight;
+    try { sessionStorage.setItem('bankdebug-log', bankDebugEl.textContent.slice(-6000)); } catch (e) { /* stockage indisponible */ }
+}
+
+if (BANK_DEBUG) {
+    ['visibilitychange', 'pagehide', 'pageshow', 'blur', 'focus'].forEach((ev) => {
+        window.addEventListener(ev, () => {
+            bankDebug(ev === 'visibilitychange' ? `visibilitychange → ${document.visibilityState}` : ev);
+        }, { capture: true });
+    });
+    document.addEventListener('DOMContentLoaded', () => bankDebug(`debug actif · plateforme=${platformName()}`));
+}
+
+/**
+ * Repli market:// → https : si la page est toujours au premier plan après
+ * MARKET_FALLBACK_MS, le Play Store ne s'est pas ouvert (market:// non pris en
+ * charge) → on ouvre la version https. Annulé dès que la page passe en arrière-plan.
+ */
+const MARKET_FALLBACK_MS = 1500;
+let marketFallbackTimer = null;
+
+function cancelMarketFallback(reason) {
+    if (!marketFallbackTimer) return;
+    clearTimeout(marketFallbackTimer);
+    marketFallbackTimer = null;
+    bankDebug(`fallback https annulé (${reason})`);
+}
+
+['pagehide', 'blur'].forEach((ev) => window.addEventListener(ev, () => cancelMarketFallback(ev)));
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) cancelMarketFallback('page masquée');
+});
+
+/** Ouvre l'app de la banque. Appelée directement dans le tap (geste utilisateur). */
+function openBankApp(bankKey) {
+    const bank = BANKS[bankKey];
+    if (!bank) return;
+    const launch = resolveBankLaunch(bank);
+    bankDebugT0 = performance.now();
+    bankDebug(`banque=${bankKey} · plateforme=${platformName()} · méthode=${launch ? launch.method : 'copie-seule'}`);
+    if (!launch) return;
+    bankDebug(`url=${launch.url}`);
+    bankDebug(`fallback=${launch.fallback || '—'}`);
+
+    cancelMarketFallback('nouveau tap');
+    window.location.href = launch.url;
+
+    if (launch.fallbackIfStillVisible && launch.fallback) {
+        marketFallbackTimer = setTimeout(() => {
+            marketFallbackTimer = null;
+            if (document.visibilityState === 'visible') {
+                bankDebug(`page toujours visible → fallback ${launch.fallback}`);
+                window.location.href = launch.fallback;
+            }
+        }, MARKET_FALLBACK_MS);
+    }
+}
+
+/**
+ * Copier → Feedback → Ouvrir l'app.
+ * La copie est lancée sans être attendue : la navigation part dans le même
+ * geste utilisateur (sinon le navigateur peut refuser l'ouverture de l'app).
+ * Cédula (pas de data-bank) → copie seule.
+ */
+function copyAndOpenBank(btn) {
     const textToCopy = btn.getAttribute('data-copy');
     const bankKey = btn.getAttribute('data-bank');
     if (!textToCopy) return;
 
-    // 1. Copier le numéro de compte
-    await copyAccount(textToCopy);
-
-    // 2. Afficher ✓ Copiado
+    copyAccount(textToCopy);
     showCopyFeedback(btn);
 
-    // 3. Ouvrir l'app bancaire — uniquement si data-bank présent (Cédula n'en a pas)
-    if (!bankKey || !BANKS[bankKey]) return;
-
-    const bank = BANKS[bankKey];
-
-    if (bank.appLink) {
-        // APAP / BHD — HTTPS App Link vérifié, fonctionne sur iOS et Android
-        window.location.href = bank.appLink;
-
-    } else if (isAndroid()) {
-        // Banreservas / Popular / Adopem — Android
-        // intent:// avec package + fallback Play Store encodé.
-        // Chrome Android: ouvre l'app si installée, sinon redirige vers Play Store.
-        const fallback = encodeURIComponent(bank.androidStore);
-        window.location.href =
-            `intent://#Intent;package=${bank.androidPackage};S.browser_fallback_url=${fallback};end;`;
-
-    } else {
-        // Banreservas / Popular / Adopem — iOS
-        // Aucun Universal Link ni scheme vérifié → App Store officiel.
-        window.location.href = bank.iosStore;
-    }
+    if (bankKey) openBankApp(bankKey);
 }
 
 
